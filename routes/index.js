@@ -5,12 +5,11 @@ const auth = require('./auth');
 router.get('/', (req, res) => {
     // Get content endpoint
     res.render('home', {
-        user: null
+        user: req.session.user
     });
 });
 
 router.get('/content', auth, (req, res) => {
-    console.log('---__ahihi_---', req.session.user);
     // Get content endpoint
     res.render('home', {
         user: req.session.user

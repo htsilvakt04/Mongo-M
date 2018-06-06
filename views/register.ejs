@@ -1,4 +1,4 @@
-<form action="/login" method="post">
+<form action="/register" method="post">
     <div>
         <label>Email:</label>
         <input type="text" name="email"/><br/>
@@ -9,11 +9,6 @@
     </div>
     <div>
         <input type="submit" value="Submit"/>
-    </div>
-    <div class="social-login">
-        <a href="/login/social/facebook">Login with Facebook</a>
-        <hr>
-        <a href="/login/social/google">Login with Google</a>
     </div>
 	<div class="error-field">
         <% if (errors) { %>

@@ -11,8 +11,8 @@ module.exports = () => {
         db.once('open', () => {
             resolve(db);
         });
-        db.on('error', () => {
-            reject(db);
+        db.on('error', (err) => {
+            reject(err);
         });
     });
 }
