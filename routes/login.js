@@ -16,6 +16,7 @@ router.route('/social/:name')
 
 router.route('/social/verify/:name')
     .get(loginController.verifySocial)
+    .post(loginController.verifySocial)
 
 
 module.exports = router;

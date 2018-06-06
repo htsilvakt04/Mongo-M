@@ -1,3 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
+    <script>
+        function start() {
+            gapi.load('auth2', function() {
+                auth2 = gapi.auth2.init({
+                    client_id: '39800732766-dboejq717au65j8hpckpjifj32tnbho0.apps.googleusercontent.com',
+                    // Scopes to request in addition to 'profile' and 'email'
+                    scope: 'profile email'
+                });
+            });
+        }
+    </script>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
 <form action="/login" method="post">
     <div>
         <label>Email:</label>
@@ -10,18 +30,55 @@
     <div>
         <input type="submit" value="Submit"/>
     </div>
-    <div class="social-login">
-        <a href="/login/social/facebook">Login with Facebook</a>
-        <hr>
-        <a href="/login/social/google">Login with Google</a>
-    </div>
-	<div class="error-field">
+    <div class="error-field">
         <% if (errors) { %>
-            <ul>
-                <% errors.forEach( e => { %>
-                    <li><%= e %></li>
-                <% }); %>
-            </ul>
+        <ul>
+            <% errors.forEach( e => { %>
+            <li><%= e %></li>
+            <% }); %>
+        </ul>
         <% } %>
     </div>
 </form>
+
+<div class="social-login">
+    <a href="/login/social/facebook">Login with Facebook</a>
+    <hr>
+    <button id="signinButton">Login with Google</button>
+</div>
+
+<script>
+
+    function signInCallback(authResult) {
+        console.log('ahihihi',authResult['code']);
+        if (authResult['code']) {
+            // Hide the sign-in button now that the user is authorized, for example:
+            $('#signinButton').attr('style', 'display: none');
+            // Send the code to the server
+            $.ajax({
+                type: 'POST',
+                url: '/login/social/verify/google',
+                // Always include an `X-Requested-With` header in every AJAX request,
+                // to protect against CSRF attacks.
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                contentType: 'application/json; charset=utf-8',
+                success: function(result) {
+
+                },
+                processData: false,
+                data: JSON.stringify({code: authResult['code']})
+            });
+        } else {
+            // There was an error.
+        }
+    } //
+    $('#signinButton').click(function() {
+        // signInCallback defined in step 6.
+        auth2.grantOfflineAccess().then(signInCallback);
+    });
+</script>
+</body>
+</html>
+

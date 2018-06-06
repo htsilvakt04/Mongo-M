@@ -31,6 +31,7 @@ module.exports = (connection) => {
             ttl: Number(process.env.TTL_TIME) // = 3 days.
         })
     }));
+
     app.use('/', indexRouter);
     app.use('/login', loginRouter);
     app.use('/register', registerRouter);
