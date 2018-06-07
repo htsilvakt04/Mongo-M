@@ -34,7 +34,23 @@ const redirectSocial = (req, res) => {
 const verifySocial = (req, res) => {
     const {name} = 'facebook'; // req.params;
     const {code} = req.body;
+    const dataTosend = {
+        params: {
+            input_token: code.accessToken,
+            access_token: '1877035595944613|hAWUE7vp8t55nyGgfOWCOo0GAvI'
+        }
+    }
+    // if valid then get the info
+    axios.get('https://graph.facebook.com/debug_token', dataTosend)
+        .then(response => {
+            console.log('---___---', response.data);
+            axios.get('https://graph.facebook.com/me', {params: {access_token:  code.accessToken, fields: 'name,email'}}).then(data => {
+                console.log('ahihi------___--ahihi', data.data)
+            })
+        }) // test for facebook
 
+
+    return;
     // TODO: check if request.header !=== X-Requested-With
 
     const url = 'https://www.googleapis.com/oauth2/v4/token';
