@@ -19,6 +19,10 @@ app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.locals.errors = [];
+app.locals.loginKey = {
+    facebook: process.env.FACEBOOK_KEY,
+    google: process.env.GOOGLE_KEY
+}
 
 module.exports = (connection) => {
     app.use(session({

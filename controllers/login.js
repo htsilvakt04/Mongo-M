@@ -51,17 +51,16 @@ const verifySocial = (req, res) => {
         const result = await axios.post(url, data)
                         .then( response => response.data).catch( err => console.log(err));
         const {access_token} = result;
-        const dataUrl = `https://www.googleapis.com/plus/v1/people/me?access_token=${access_token}`
+        const dataUrl = `https://www.googleapis.com/plus/v1/people/me?access_token=${access_token}`;
 
         // use the refresh_token to look in DB seeing the user_id or email
-        // IF find log them in
+        // find log them in && then save a new record to access_token for later use
         const userInfo = await axios.get(dataUrl).then(response => response.data);
         // ELSE send api to ger user info then create NEW USER and log them in
-        console.log('---___---', userInfo);
 
 
     }
-    main().then(); // send back data to React side saying that ok
+    main().then().catch() // send back data to React side saying that ok
 
 }
 

@@ -3,16 +3,28 @@
 <head>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
+    <script src="https://connect.facebook.net/en_US/sdk.js"></script>
+
     <script>
+        const googleKey = '<%= loginKey.google %>';
+        const facebookKey = '<%= loginKey.facebook %>';
+
         function start() {
             gapi.load('auth2', function() {
                 auth2 = gapi.auth2.init({
-                    client_id: '39800732766-dboejq717au65j8hpckpjifj32tnbho0.apps.googleusercontent.com',
-                    // Scopes to request in addition to 'profile' and 'email'
+                    client_id: googleKey,
                     scope: 'profile email'
                 });
             });
         }
+        FB.init({
+            appId   : facebookKey,
+            cookie  : true,
+            status  : true,
+            xfbml   : true,
+            state: 'silva',
+            version : 'v2.9'
+        });
     </script>
     <meta charset="UTF-8">
     <title>Login</title>
@@ -42,7 +54,7 @@
 </form>
 
 <div class="social-login">
-    <a href="/login/social/facebook">Login with Facebook</a>
+    <button id="facebook-login">Login with Facebook</button>
     <hr>
     <button id="signinButton">Login with Google</button>
 </div>
@@ -50,7 +62,6 @@
 <script>
 
     function signInCallback(authResult) {
-        console.log('ahihihi',authResult['code']);
         if (authResult['code']) {
             // Hide the sign-in button now that the user is authorized, for example:
             $('#signinButton').attr('style', 'display: none');
@@ -77,6 +88,18 @@
     $('#signinButton').click(function() {
         // signInCallback defined in step 6.
         auth2.grantOfflineAccess().then(signInCallback);
+    });
+    $('#facebook-login').click(function(event) {
+        FB.login(function(response) {
+            if (response.authResponse) {
+                console.log('---___---', response);
+                FB.api('/me', function(response) {
+                    console.log('Good to see you, ' + response.name + '.');
+                });
+            } else {
+                console.log('User cancelled login or did not fully authorize.');
+            }
+        },{scope: 'public_profile,email'});
     });
 </script>
 </body>
