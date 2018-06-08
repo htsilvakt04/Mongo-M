@@ -1,6 +1,5 @@
 const User = require('../modal/User');
-const axios = require('axios');
-const queryString = require('query-string');
+const socialHandle = require('./handler/social');
 
 const showFormOrRedirect = (req, res) => {
     if (!req.session.user) {
@@ -26,58 +25,17 @@ const logUserIn = (req, res) => {
     })
 }
 
-const redirectSocial = (req, res) => {
+const verifySocial = (req, res) => {
     const {name} = req.params;
 
-}
-
-const verifySocial = (req, res) => {
-    const {name} = 'facebook'; // req.params;
-    const {code} = req.body;
-    const dataTosend = {
-        params: {
-            input_token: code.accessToken,
-            access_token: '1877035595944613|hAWUE7vp8t55nyGgfOWCOo0GAvI'
-        }
+    switch (name) {
+        case 'facebook':
+            return socialHandle.facebook(req, res);
+        case 'google':
+            return socialHandle.google(req, res);
+        default:
+            return res.send('Not support yet!');
     }
-    // if valid then get the info
-    axios.get('https://graph.facebook.com/debug_token', dataTosend)
-        .then(response => {
-            console.log('---___---', response.data);
-            axios.get('https://graph.facebook.com/me', {params: {access_token:  code.accessToken, fields: 'name,email'}}).then(data => {
-                console.log('ahihi------___--ahihi', data.data)
-            })
-        }) // test for facebook
-
-
-    return;
-    // TODO: check if request.header !=== X-Requested-With
-
-    const url = 'https://www.googleapis.com/oauth2/v4/token';
-    const data = queryString.stringify({
-        code,
-        client_id: process.env.GOOGLE_KEY,
-        client_secret: process.env.GOOGLE_SECRET,
-        redirect_uri: 'http://localhost:3000',
-        grant_type: 'authorization_code'
-    });
-
-    async function main () {
-        // send code to receive access_token + id_token
-        const result = await axios.post(url, data)
-                        .then( response => response.data).catch( err => console.log(err));
-        const {access_token} = result;
-        const dataUrl = `https://www.googleapis.com/plus/v1/people/me?access_token=${access_token}`;
-
-        // use the refresh_token to look in DB seeing the user_id or email
-        // find log them in && then save a new record to access_token for later use
-        const userInfo = await axios.get(dataUrl).then(response => response.data);
-        // ELSE send api to ger user info then create NEW USER and log them in
-
-
-    }
-    main().then().catch() // send back data to React side saying that ok
-
 }
 
 
@@ -85,6 +43,5 @@ const verifySocial = (req, res) => {
 module.exports = {
     showFormOrRedirect,
     logUserIn,
-    redirectSocial,
     verifySocial
 };

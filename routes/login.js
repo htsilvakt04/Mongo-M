@@ -11,11 +11,7 @@ router.route('/')
     .get(loginController.showFormOrRedirect)
     .post(loginController.logUserIn);
 
-router.route('/social/:name')
-    .get(loginController.redirectSocial)
-
 router.route('/social/verify/:name')
-    .get(loginController.verifySocial)
     .post(loginController.verifySocial)
 
 
