@@ -41,9 +41,11 @@ function checkValidFBToken(dataToSend) {
 }
 
 function getFBUserInfo(access_token) {
-    return axios.get('https://graph.facebook.com/me', {params: {access_token, fields: 'name,email'}}).then( ({data}) => {
-        console.log('ahihi------___--ahihi', data)
-    })
+    const url = 'https://graph.facebook.com/me';
+    const data = {
+        params: {access_token, fields: 'name,email,picture'}
+    }
+    return axios.get(url, data).then( ({data}) => data).catch(err => err);
 }
 
 

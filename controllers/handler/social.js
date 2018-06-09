@@ -12,20 +12,21 @@ const facebook = (req, res) => {
     async function main() {
         // if valid then get the info
         const Token = await util.checkValidFBToken(dataTosend); // {isValid: true, user_id: 12, scopes: ['email', 'profile'], ...}
-
-        if (!Token.isValid) { // send back error res immediately
+        if (!Token.isValid || !Token) { // send back error res immediately
             return res.status(403).send('Token is not valid');
         }
         // look in database find if the user with id exists=> log them in
-        const user = await User.findOne({'client.facebook.client_user_id': Token.user_id}).then((err, doc) => doc);
-
-        if (user !== null) {
+        const user = await User.findOne({'client.client_user_id': Token.user_id}).then((doc, err) => doc);
+        if (user) {
             req.session.regenerate( err => {
                 req.session.user = user;
             })
         } else {
-            const userInfo = await util.getFBUserInfo(Token);
+            const userInfo = await util.getFBUserInfo(access_token);
+            userInfo.access_token = access_token;
+
             const newUser = await User.createFromFB(userInfo);
+
             return;
             req.session.regenerate( err => {
                 req.session.user = newUser

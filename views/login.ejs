@@ -93,7 +93,6 @@
     $('#facebook-login').click(function(event) {
         FB.login(function(response) {
             if (response.authResponse) {
-                console.log('---___---', response);
                 // send access_token to the back-end here
                 $.ajax({
                     type: 'POST',

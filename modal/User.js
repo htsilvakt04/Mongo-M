@@ -23,9 +23,18 @@ const UserSchema = mongoose.Schema({
 
 const UserModel = mongoose.model('User', UserSchema);
 
-UserModel.createFromFB = function (userInfo) {
-    const dataToCreate = util.extractUserDataFromFB(userInfo);
-    // return this.create(userInfo).then((user, err) => user);
+UserModel.createFromFB = async function (userInfo) {
+    const dataToCreate = util.constructUserDataFromFB(userInfo); // just construct SocialClient data
+    const email = dataToCreate.email;
+
+    const isBasicUserExisted = await this.findOne({email}).then( (doc,err ) => doc);
+    console.log('---___---', dataToCreate);
+    if (isBasicUserExisted) {
+        await this.updateOne({email}, {$set: {client: [dataToCreate]}})
+    } else {
+        // fill to the basic and the client as well
+    }
+    // return this.create(dataToCreate).then((user, err) => user);
 };
 // client:
 module.exports = UserModel;

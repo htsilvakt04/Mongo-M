@@ -5,6 +5,8 @@ const SocialClient = mongoose.Schema({
     refresh_token: String,
     client_user_id: String,
     user_name: String,
+    avatar: String,
+    email: String,
 });
 
 module.exports = SocialClient;
