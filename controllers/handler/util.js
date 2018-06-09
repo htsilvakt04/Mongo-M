@@ -1,5 +1,7 @@
-function hydrateFBToken (body) {
+const axios = require('axios');
 
+function hydrateFBToken (code) {
+    return code.accessToken || null;
 }
 function hydrateGoogleToken(body) {
     
@@ -9,7 +11,7 @@ function constructDataFB(token) {
     return {
         params: {
             input_token: token,
-            access_token: '1877035595944613|hAWUE7vp8t55nyGgfOWCOo0GAvI' // App_access_token
+            access_token: process.env.FACE_BOOK_APP_TOKEN // App_access_token
         }
     }
 }
@@ -19,13 +21,22 @@ function constructDataGoogle() {
 }
 
 function checkValidFBToken(dataToSend) {
-    return axios.get('https://graph.facebook.com/debug_token', dataToSend)
-        .then(({data}) => {
-            // check if token is valid or not then return boolean
+    const url = 'https://graph.facebook.com/debug_token';
+
+    return axios.get(url, dataToSend)
+        .then( response => {
+            const data = response.data.data;
+            if (!data.is_valid || data.app_id !== process.env.FACEBOOK_KEY) {
+                // Todo: should check scopes as well => reAsk permission if no email
+                return {
+                    isValid: false
+                }
+            }
             return {
-                isValid: true, // more
-                user_id: data.user_id
-            }; // hard code right now
+                isValid: true,
+                user_id: data.user_id,
+                scopes: data.scopes
+            }
         })
 }
 

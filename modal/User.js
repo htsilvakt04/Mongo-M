@@ -9,8 +9,7 @@ const UserSchema = mongoose.Schema({
     image: String,
     language: String,
     client: {
-        type: Map,
-        of: SocialClient
+        type: [SocialClient]
     },
     created_at: {
         type: Date,
@@ -24,9 +23,9 @@ const UserSchema = mongoose.Schema({
 
 const UserModel = mongoose.model('User', UserSchema);
 
-UserModel.prototype.createFromFB = function (userInfo) {
+UserModel.createFromFB = function (userInfo) {
     const dataToCreate = util.extractUserDataFromFB(userInfo);
-    return this.create(dataToCreate).then((err, user) => user);
+    // return this.create(userInfo).then((user, err) => user);
 };
 // client:
 module.exports = UserModel;

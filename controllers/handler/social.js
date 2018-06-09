@@ -5,7 +5,8 @@ const User = require('../../modal/User');
 
 const facebook = (req, res) => {
     const {code} = req.body;
-    const access_token = util.hydrateFBToken(req.body);
+
+    const access_token = util.hydrateFBToken(code);
     const dataTosend = util.constructDataFB(access_token);
 
     async function main() {
@@ -20,11 +21,12 @@ const facebook = (req, res) => {
 
         if (user !== null) {
             req.session.regenerate( err => {
-                req.session.user = user
+                req.session.user = user;
             })
         } else {
             const userInfo = await util.getFBUserInfo(Token);
             const newUser = await User.createFromFB(userInfo);
+            return;
             req.session.regenerate( err => {
                 req.session.user = newUser
             })

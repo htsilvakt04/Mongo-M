@@ -25,6 +25,7 @@ app.locals.loginKey = {
 }
 
 module.exports = (connection) => {
+
     app.use(session({
         secret: 'silva-handsome',
         name: 'silvaApp-session',

@@ -8,7 +8,7 @@
     "type": "git"
   },
   "scripts": {
-    "jest": "jest --colors --env=node --verbose"
+    "test": "jest --colors --env=node --verbose"
   },
   "dependencies": {
     "axios": "^0.18.0",
