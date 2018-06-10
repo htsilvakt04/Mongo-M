@@ -1,5 +1,5 @@
 const axios = require('axios');
-
+const Error = require('../../config');
 function hydrateFBToken (code) {
     return code.accessToken || null;
 }
@@ -48,6 +48,21 @@ function getFBUserInfo(access_token) {
     return axios.get(url, data).then( ({data}) => data).catch(err => err);
 }
 
+function detectErrorFromToken(Token) {
+    const result = {
+        message: null,
+        code: null
+    }
+    if (!Token.isValid || !Token) { // send back error res immediately
+        result.code = 403;
+        result.message = Error.INVALID_TOKEN
+    }
+    if (Token.scopes.indexOf('email') < 0) {
+        result.code = 400;
+        result.message = Error.MISSING_EMAIL
+    }
+    return result;
+}
 
 module.exports = {
     hydrateFBToken,
@@ -55,5 +70,6 @@ module.exports = {
     constructDataFB,
     constructDataGoogle,
     checkValidFBToken,
+    detectErrorFromToken,
     getFBUserInfo
 }

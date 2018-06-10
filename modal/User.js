@@ -6,7 +6,7 @@ const UserSchema = mongoose.Schema({
     name: String,
     email: String,
     password: String,
-    image: String,
+    avatar: String,
     language: String,
     client: {
         type: [SocialClient]
@@ -27,14 +27,19 @@ UserModel.createFromFB = async function (userInfo) {
     const dataToCreate = util.constructUserDataFromFB(userInfo); // just construct SocialClient data
     const email = dataToCreate.email;
 
-    const isBasicUserExisted = await this.findOne({email}).then( (doc,err ) => doc);
-    console.log('---___---', dataToCreate);
+    const isBasicUserExisted = await this.findOne({email}).then((doc, err) => doc);
+
     if (isBasicUserExisted) {
-        await this.updateOne({email}, {$set: {client: [dataToCreate]}})
-    } else {
-        // fill to the basic and the client as well
+        await this.updateOne({email}, {$set: {client: [dataToCreate]}});
+        return isBasicUserExisted;
     }
-    // return this.create(dataToCreate).then((user, err) => user);
+
+    return await this.create({
+        name: dataToCreate.user_name,
+        email: dataToCreate.email,
+        avatar: dataToCreate.avatar,
+        client: dataToCreate
+    }).then((user, err) => user);
 };
 // client:
 module.exports = UserModel;

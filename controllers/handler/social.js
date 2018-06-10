@@ -1,48 +1,56 @@
-const axios = require('axios');
-const queryString = require('query-string');
 const util = require('./util');
 const User = require('../../modal/User');
+const Error = require('../../config');
+const axios = require('axios');
+const queryString = require('query-string');
 
 const facebook = (req, res) => {
-    const {code} = req.body;
+    const {code} = req.body
 
-    const access_token = util.hydrateFBToken(code);
-    const dataTosend = util.constructDataFB(access_token);
+    const access_token = util.hydrateFBToken(code)
+    const dataTosend = util.constructDataFB(access_token)
 
     async function main() {
-        // if valid then get the info
-        const Token = await util.checkValidFBToken(dataTosend); // {isValid: true, user_id: 12, scopes: ['email', 'profile'], ...}
-        if (!Token.isValid || !Token) { // send back error res immediately
-            return res.status(403).send('Token is not valid');
+        const Token = await util.checkValidFBToken(dataTosend);
+        const TokenError = util.detectErrorFromToken(Token);
+
+        if (TokenError.message) {
+            return Promise.reject({code: TokenError.code, message: TokenError.message});
         }
-        // look in database find if the user with id exists=> log them in
-        const user = await User.findOne({'client.client_user_id': Token.user_id}).then((doc, err) => doc);
-        if (user) {
-            req.session.regenerate( err => {
-                req.session.user = user;
+
+        let user = await User.findOne({'client.client_user_id': Token.user_id}).then((doc, err) => doc)
+
+        if (! user) {
+            const userInfo = await util.getFBUserInfo(access_token)
+            userInfo.access_token = access_token
+
+            user = await User.createFromFB(userInfo)
+        }
+
+        return new Promise( resolve => {
+            req.session.regenerate( (err) =>  {
+                req.session.user = {
+                    email: user.email,
+                    id: user._id
+                }
+
+                resolve ({
+                    email: user.email,
+                    id: user._id
+                })
             })
-        } else {
-            const userInfo = await util.getFBUserInfo(access_token);
-            userInfo.access_token = access_token;
+        })
 
-            const newUser = await User.createFromFB(userInfo);
-
-            return;
-            req.session.regenerate( err => {
-                req.session.user = newUser
-            })
-        }
-
-        return {
-            email: req.session.user.email,
-            name: req.session.user.name
-        }
-        // otherwise send api to ger user info then create NEW USER and log them in
     }
 
     main()
-        .then((data) => req.status(200).send(data))
-        .catch(err => res.status(400).send('Error'));
+        .then((data) => res.status(200).send(data))
+        .catch( err => {
+            const code = err.code || 400;
+            const message = err.message || 'Error';
+
+            return res.status(code).send(message);
+        });
 }
 
 const google = (req, res) => {
@@ -78,3 +86,10 @@ module.exports = {
     facebook,
     google
 }
+
+
+
+
+
+
+
