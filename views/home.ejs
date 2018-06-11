@@ -1,5 +1,41 @@
-<% if (!user) { %>
-    <p>Welcome! Please <a href="/login">log in</a>.</p>
-<% } else { %>
-    <p>Hello, <%= user.email %>. View your <a href="/profile">profile</a>.</p>
-<% } %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="MongoMart by MongoDB -- silva version">
+    <meta name="author" content="silva">
+    <link rel="icon" href="/static/img/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon" />
+
+    <title>MongoMart - Shop MongoDB Gear</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/static/css/shop-homepage.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js" defer></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js" defer></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+<!-- Page Content -->
+<div id="root">
+
+
+</div>
+
+<%- include('includes/footer'); %>
+<script src="/static/js/home-page.bundle.js" defer></script>
+</body>
+
+</html>

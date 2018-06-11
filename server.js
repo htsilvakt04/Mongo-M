@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const xss = require("xss");
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -7,14 +8,14 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
 const indexRouter = require('./routes');
-const loginRouter = require('./routes/login');
-const registerRouter = require('./routes/register');
-const logoutRouter = require('./routes/logout');
+const apiRouter = require('./routes/api');
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
+
+app.use('/static', express.static(__dirname + '/client/static'));
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -38,9 +39,10 @@ module.exports = (connection) => {
     }));
 
     app.use('/', indexRouter);
-    app.use('/login', loginRouter);
-    app.use('/register', registerRouter);
-    app.use('/logout', logoutRouter);
+    app.use('/api', apiRouter);
 
+    app.use('*', (req, res) => {
+        return res.render('home');
+    })
     return app;
 };
