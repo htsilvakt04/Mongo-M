@@ -1,28 +1,31 @@
 const express = require('express');
 const router = express.Router();
-const registerController = require('../controllers/regiter');
-const { redirectIfLoggedin } = require('../controllers/share');
+const loginRoutes = require('./login');
+const logoutRoutes = require('./logout');
+const registerRoutes = require('./register');
 
-router.route('/')
-    .get(registerController.showFormOrRedirect)
-    .post(registerController.regiterUser);
-router.route('/login')
-    .get(registerController.showFormOrRedirect)
-    .post(registerController.regiterUser);
+// auth routes
+router.use('/login', loginRoutes);
+router.use('/register', registerRoutes);
+router.use('/logout', logoutRoutes);
+
+// data routes
 
 router.get('/category/:name', function (req, res) {
     let categoryName = req.params.name;
-    items.getCategories(function(categories) {
-        return res.json(categories);
-    })
+    // items.getCategories(function(categories) {
+    //     return res.json(categories);
+    // })
+    return res.json({data: 'silva'});
 });
 
 // get items for : go though pages + when selecting the category
 router.get('/items', function (req, res) {
     let {category, skip, limit} = req.query;
-    items.getItems(category, skip, limit, function(pageItems) {
-        return res.json(pageItems);
-    })
+    // items.getItems(category, skip, limit, function(pageItems) {
+    //     return res.json(pageItems);
+    // })
+    return res.json({data: 'silva'});
 });
 
 // add review for item
