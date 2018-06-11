@@ -1,19 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <script src="https://connect.facebook.net/en_US/sdk.js"></script>
-    <script >
-        const facebookKey = '<%= loginKey.facebook %>';
-        FB.init({
-            appId   : facebookKey,
-            cookie  : true,
-            status  : true,
-            xfbml   : true,
-            state: 'silva',
-            version : 'v2.9'
-        });
-    </script>
     <meta charset="UTF-8">
     <title>Login</title>
 </head>
@@ -44,9 +31,19 @@
 <div class="social-login">
     <button id="facebook-login">Login with Facebook</button>
 </div>
-
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" defer></script>
+<script src="https://connect.facebook.net/en_US/sdk.js" defer></script>
 <script>
-    $(document).ready(function() {
+    window.addEventListener('load', function() {
+        const facebookKey = '<%= loginKey.facebook %>';
+        FB.init({
+            appId   : facebookKey,
+            cookie  : true,
+            status  : true,
+            xfbml   : true,
+            state: 'silva',
+            version : 'v2.9'
+        });
         $('#facebook-login').click(function(event) {
             FB.login(function(response) {
                 if (response.authResponse) {
@@ -78,7 +75,7 @@
                 }
             },{scope: 'public_profile,email', auth_type: 'rerequest', return_scopes: true});
         });
-    });
+    })
 </script>
 </body>
 </html>
