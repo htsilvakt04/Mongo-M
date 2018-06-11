@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const itemController = require('../controllers/item');
+
 const loginRoutes = require('./login');
 const logoutRoutes = require('./logout');
 const registerRoutes = require('./register');
@@ -20,13 +22,8 @@ router.get('/category/:name', function (req, res) {
 });
 
 // get items for : go though pages + when selecting the category
-router.get('/items', function (req, res) {
-    let {category, skip, limit} = req.query;
-    // items.getItems(category, skip, limit, function(pageItems) {
-    //     return res.json(pageItems);
-    // })
-    return res.json({data: 'silva'});
-});
+
+router.get('/items', itemController.retrieveItems);
 
 // add review for item
 router.post("/item/:itemId/reviews", function(req, res) {

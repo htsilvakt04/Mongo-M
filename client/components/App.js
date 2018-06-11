@@ -6,12 +6,12 @@ import Navbar from './shared/navbar';
 import Loading from './shared/Loading';
 import HomePage from './homepage/HomePage';
 import ItemDetail from './ItemDetail/ItemDetail';
-import {handleInitialData} from '../actions/init';
+import { handleInitialData } from '../actions';
 import ScrollToTopRoute from './shared/ScrollToTopRoute';
 
 class App extends React.Component {
     componentDidMount () {
-        this.props.dispatch(handleInitialData());
+        this.props.handleInitialData();
     }
 
     render () {
@@ -50,4 +50,4 @@ function mapStateToProps({byIds}) {
         loading:  Object.keys(byIds).length < 1
     }
 }
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, { handleInitialData })(App);

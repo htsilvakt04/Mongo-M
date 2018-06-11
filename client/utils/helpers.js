@@ -10,7 +10,7 @@ export function formatCategories(categories) {
 }
 
 export function formatItems(items) {
-    return items.reduce((item, key) => {
+    return items.data.reduce((item, key) => {
         item[key._id] = key;
         return item
     }, {});
