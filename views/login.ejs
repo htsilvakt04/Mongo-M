@@ -2,21 +2,9 @@
 <html lang="en">
 <head>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
     <script src="https://connect.facebook.net/en_US/sdk.js"></script>
-
-    <script>
-        const googleKey = '<%= loginKey.google %>';
+    <script >
         const facebookKey = '<%= loginKey.facebook %>';
-
-        function start() {
-            gapi.load('auth2', function() {
-                auth2 = gapi.auth2.init({
-                    client_id: googleKey,
-                    scope: 'profile email'
-                });
-            });
-        }
         FB.init({
             appId   : facebookKey,
             cookie  : true,
@@ -55,70 +43,41 @@
 
 <div class="social-login">
     <button id="facebook-login">Login with Facebook</button>
-    <hr>
-    <button id="signinButton">Login with Google</button>
 </div>
 
 <script>
-
-    function signInCallback(authResult) {
-        if (authResult['code']) {
-            // Hide the sign-in button now that the user is authorized, for example:
-            $('#signinButton').attr('style', 'display: none');
-            // Send the code to the server
-            $.ajax({
-                type: 'POST',
-                url: '/login/social/verify/google',
-                // Always include an `X-Requested-With` header in every AJAX request,
-                // to protect against CSRF attacks.
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                contentType: 'application/json; charset=utf-8',
-                success: function(result) {
-
-                },
-                processData: false,
-                data: JSON.stringify({code: authResult['code']})
-            });
-        } else {
-            // There was an error.
-        }
-    } //
-    $('#signinButton').click(function() {
-        // signInCallback defined in step 6.
-        auth2.grantOfflineAccess().then(signInCallback);
-    });
-    $('#facebook-login').click(function(event) {
-        FB.login(function(response) {
-            if (response.authResponse) {
-                // send access_token to the back-end here
-                $.ajax({
-                    type: 'POST',
-                    url: '/login/social/verify/facebook',
-                    // Always include an `X-Requested-With` header in every AJAX request,
-                    // to protect against CSRF attacks.
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    },
-                    contentType: 'application/json; charset=utf-8',
-                    processData: false,
-                    data: JSON.stringify({code: response.authResponse}),
-                    success: function(result) {
-                        console.log(result)
-                    },
-                    error: function (result) {
-                        const {status, responseText} = result;
-                        if (status === 400 && responseText === "MISSING_EMAIL") {
-                            alert('Please Re-authorize your email in the Tab, we need that!')
+    $(document).ready(function() {
+        $('#facebook-login').click(function(event) {
+            FB.login(function(response) {
+                if (response.authResponse) {
+                    // send access_token to the back-end here
+                    $.ajax({
+                        type: 'POST',
+                        url: '/login/social/verify/facebook',
+                        // Always include an `X-Requested-With` header in every AJAX request,
+                        // to protect against CSRF attacks.
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        },
+                        contentType: 'application/json; charset=utf-8',
+                        processData: false,
+                        data: JSON.stringify({code: response.authResponse}),
+                        success: function(result) {
+                            console.log(result)
+                        },
+                        error: function (result) {
+                            const {status, responseText} = result;
+                            if (status === 400 && responseText === "MISSING_EMAIL") {
+                                alert('Please Re-authorize your email in the Tab, we need that!')
+                            }
                         }
-                    }
-                });
+                    });
 
-            } else {
-                console.log('User cancelled login or did not fully authorize.');
-            }
-        },{scope: 'public_profile,email', auth_type: 'rerequest', return_scopes: true});
+                } else {
+                    console.log('User cancelled login or did not fully authorize.');
+                }
+            },{scope: 'public_profile,email', auth_type: 'rerequest', return_scopes: true});
+        });
     });
 </script>
 </body>
