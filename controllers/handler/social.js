@@ -27,16 +27,19 @@ const facebook = (req, res) => {
             user = await User.createFromFB(userInfo)
         }
 
+        console.log('---___---', user);
         return new Promise( resolve => {
             req.session.regenerate( (err) =>  {
                 req.session.user = {
                     email: user.email,
-                    id: user._id
+                    id: user._id,
+                    name: user.name || null
                 }
 
                 resolve ({
                     email: user.email,
-                    id: user._id
+                    id: user._id,
+                    name: user.name || null
                 })
             })
         })
