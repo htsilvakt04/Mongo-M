@@ -1,5 +1,6 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
+import style from './Loading.css';
 
 class Loading extends React.Component {
     state = {
@@ -23,7 +24,7 @@ class Loading extends React.Component {
 
     render () {
         return (
-            <p className='loading-label' style={this.props.style}>{this.state.label}</p>
+            <p className={'loading-label ' + style.paragraph}>{this.state.label}</p>
         )
     }
     static propTypes = {

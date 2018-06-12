@@ -18,7 +18,7 @@ class App extends React.Component {
         if (this.props.loading) {
             return (
                 <div  className="container">
-                    <Loading style={{color: '#00D1B2', textAlign: 'center', fontSize: '45px'}} intervalTime={200}/>
+                    <Loading intervalTime={200}/>
                 </div>
             )
         }
@@ -28,6 +28,7 @@ class App extends React.Component {
                 <Route render={ ({ location, history }) => (
                     <div>
                         <Navbar location={location} history={history}/>
+
                         <TransitionGroup>
                             <CSSTransition key={location.key} classNames="fade" timeout={300}>
                                 <Switch location={location}>

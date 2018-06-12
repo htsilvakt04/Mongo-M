@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const SocialClient = require('./Social_Client');
+const Cart = require('./Cart').schema;
 const util = require('./util/extractUserDataFromSocial');
 // name, email, image, id, language
 const UserSchema = mongoose.Schema({
@@ -10,6 +11,9 @@ const UserSchema = mongoose.Schema({
     language: String,
     client: {
         type: [SocialClient]
+    },
+    cart: {
+        type: [Cart]
     },
     created_at: {
         type: Date,

@@ -1,0 +1,20 @@
+.index__fade-enter___3R3js {
+    opacity: 0;
+    z-index: 1;
+}
+
+.index__fade-enter___3R3js.index__fade-enter-active___3Y0HT {
+    opacity: 1;
+    transition: opacity 300ms ease-in;
+}
+
+@media screen and (max-width: 768px) {
+    form.index__navbar-form___3rlj1 {
+        margin-bottom: 0;
+        margin-top: 0;
+    }
+}.Loading__paragraph___wKGPQ {
+    color: #00D1B2;
+    text-align: center;
+    font-size: 45px
+}

@@ -1,4 +1,5 @@
 require('dotenv').config();
+const compression = require('compression');
 const express = require('express');
 const xss = require("xss");
 const app = express();
@@ -9,7 +10,7 @@ const MongoStore = require('connect-mongo')(session);
 
 const indexRouter = require('./routes');
 const apiRouter = require('./routes/api');
-
+app.use(compression());
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
