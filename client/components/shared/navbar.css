@@ -1,0 +1,5 @@
+@media screen and (max-width: 768px) {
+    .cart-icon {
+        left: 1em;
+    }
+}

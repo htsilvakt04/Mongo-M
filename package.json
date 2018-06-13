@@ -51,13 +51,14 @@
     "qs": "^6.5.2",
     "query-string": "^6.1.0",
     "react": "^16.2.0",
+    "react-bootstrap-sweetalert": "^4.4.1",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-transition-group": "^2.3.0",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "whatwg-fetch": "^2.0.3",
+    "whatwg-fetch": "^2.0.4",
     "xss": "^0.3.7"
   },
   "devDependencies": {

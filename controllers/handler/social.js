@@ -43,7 +43,7 @@ const facebook = (req, res) => {
             const code = err.code || 400;
             const message = err.message || 'Error';
 
-            return res.status(code).send(message);
+            return res.status(code).json(message);
         });
 }
 
