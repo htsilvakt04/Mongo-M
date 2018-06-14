@@ -47125,6 +47125,8 @@ var _actions = __webpack_require__(127);
 
 var _reducers = __webpack_require__(55);
 
+var _util = __webpack_require__(658);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -47172,16 +47174,16 @@ var LoginPage = function (_React$Component) {
                     var message = _ref2.message,
                         status = _ref2.status;
 
+
                     if (status === 400 && message === _config2.default.MISSING_EMAIL) {
                         return _this.toggleModal();
                     }
                     if (status >= 400) {
                         return _this.toggleModal({ type: 'error', title: 'Error! Please try again' });
                     }
-                    console.log('---___---', message);
-                    _this.props.handleSignIn({ data: message });
 
                     // dispatch auth action here
+                    _this.props.handleSignIn({ data: message });
                 }).catch(function (err) {
                     return _this.toggleModal({ type: 'error', title: 'Error! Please try again' });
                 });
@@ -47190,21 +47192,27 @@ var LoginPage = function (_React$Component) {
     }
 
     _createClass(LoginPage, [{
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            document.getElementById('facebookSDK').remove();
+            window.removeEventListener('load', this.initFBSDK);
+        }
+    }, {
         key: 'componentWillMount',
         value: function componentWillMount() {
             // append script to body tag and wait for it to be downloaded
             var facebookSDK = document.createElement("script");
-            facebookSDK.src = "https://connect.facebook.net/en_US/sdk.js";
-            facebookSDK.async = true;
-            facebookSDK.id = "facebookSDK";
+            (0, _util.constructScript)(facebookSDK);
             document.body.appendChild(facebookSDK);
 
-            window.addEventListener('load', function () {
+            this.initFBSDK = function () {
                 var facebookSDKINIT = document.createElement("script");
                 // todo: move app id to config ---> App variable above already inported
                 facebookSDKINIT.text = "FB.init({appId: '1877035595944613', cookie: true, status: true, xfbml: true, state: 'silva', version : 'v2.9'})";
                 document.body.appendChild(facebookSDKINIT);
-            });
+            };
+
+            window.addEventListener('load', this.initFBSDK);
         }
     }, {
         key: 'render',
@@ -49529,6 +49537,29 @@ var thunk = createThunkMiddleware();
 thunk.withExtraArgument = createThunkMiddleware;
 
 exports.default = thunk;
+
+/***/ }),
+/* 652 */,
+/* 653 */,
+/* 654 */,
+/* 655 */,
+/* 656 */,
+/* 657 */,
+/* 658 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var constructScript = exports.constructScript = function constructScript(facebookSDK) {
+    facebookSDK.src = "https://connect.facebook.net/en_US/sdk.js";
+    facebookSDK.crossorigin = true;
+    facebookSDK.async = true;
+    facebookSDK.id = "facebookSDK";
+};
 
 /***/ })
 /******/ ]);

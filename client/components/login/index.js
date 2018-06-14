@@ -7,6 +7,7 @@ import Error from '../../config';
 import { handleSignIn } from '../../actions';
 import { getUserName } from '../../reducers';
 import { App } from '../../config';
+import { constructScript } from './util';
 
 class LoginPage extends React.Component {
     state = {
@@ -16,21 +17,24 @@ class LoginPage extends React.Component {
             type: 'warning'
         }
     }
-
+    componentWillUnmount() {
+        document.getElementById('facebookSDK').remove();
+        window.removeEventListener('load', this.initFBSDK)
+    }
     componentWillMount () {
         // append script to body tag and wait for it to be downloaded
         const facebookSDK = document.createElement("script");
-        facebookSDK.src = "https://connect.facebook.net/en_US/sdk.js";
-        facebookSDK.async = true;
-        facebookSDK.id = "facebookSDK";
+        constructScript(facebookSDK);
         document.body.appendChild(facebookSDK);
 
-        window.addEventListener('load', function() {
+        this.initFBSDK = function() {
             const facebookSDKINIT = document.createElement("script");
             // todo: move app id to config ---> App variable above already inported
             facebookSDKINIT.text = "FB.init({appId: '1877035595944613', cookie: true, status: true, xfbml: true, state: 'silva', version : 'v2.9'})";
             document.body.appendChild(facebookSDKINIT);
-        })
+        }
+
+        window.addEventListener('load', this.initFBSDK)
     }
 
     toggleModal = (props) => {
@@ -47,16 +51,16 @@ class LoginPage extends React.Component {
             if (!code) return;
 
             signIn('/api/login/social/verify/facebook', code).then( ({message, status}) => {
+
                 if (status === 400 && message === Error.MISSING_EMAIL) {
                     return this.toggleModal()
                 }
                 if (status >= 400) {
                     return this.toggleModal({type: 'error', title: 'Error! Please try again'})
                 }
-                console.log('---___---', message);
-                this.props.handleSignIn({data: message});
 
                 // dispatch auth action here
+                this.props.handleSignIn({data: message});
             }).catch( err => this.toggleModal({type: 'error', title: 'Error! Please try again'}))
 
         },{scope: 'public_profile,email', auth_type: 'rerequest', return_scopes: true});
