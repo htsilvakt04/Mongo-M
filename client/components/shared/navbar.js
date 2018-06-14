@@ -5,6 +5,7 @@ import { getUserSearchText } from '../../reducers';
 import { handleSearch } from '../../actions/items';
 
 import style from './navbar.css';
+
 class Navbar extends React.Component {
     handleSearch = (event) => {
         let val = event.target.value;

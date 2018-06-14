@@ -31,9 +31,9 @@ class App extends React.Component {
                         <Navbar location={location} history={history}/>
 
                         <TransitionGroup>
-                            <CSSTransition key={location.key} classNames="fade" timeout={300}>
+                            <CSSTransition key={location.key} classNames="fade" timeout={200}>
                                 <Switch location={location}>
-                                    <Route path="/login" component={LoginPage}/>
+                                    <ScrollToTopRoute path="/login" component={LoginPage}/>
                                     <ScrollToTopRoute path="/item/:id" component={ItemDetail}/>
                                     <ScrollToTopRoute path="/:cat?" component={HomePage}/>
                                     <Route render={() => <h1>404</h1>}/>

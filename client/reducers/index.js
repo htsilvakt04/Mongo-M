@@ -39,6 +39,7 @@ export const getUserSearchText = (state) =>
     fromUserSearchText.getText(state.userSearchText)
 
 export const getUser = (state) => fromUser.getUser(state)
+export const getUserName = (state) => fromUser.getUserName(state)
 
 
 

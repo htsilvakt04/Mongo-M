@@ -14,5 +14,8 @@ const user = (state = {email: '', name: '', cart: null}, action) => {
 
 // some selector here
 export const getUser = (state) => state;
+export const getUserEmail = (state) => state.email;
+export const getUserName = (state) => state.name;
+export const getUserCart = (state) => state.cart;
 
 export default user;

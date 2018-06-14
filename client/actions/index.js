@@ -1,7 +1,8 @@
 import { CATEGORY } from './category';
 import { PAGE } from './page';
 import { getInitialData } from '../utils/api';
-import {ITEM} from './items';
+import { ITEM } from './items';
+import { USER } from '../actions/user';
 
 export const handleChangeCat = (cat) => (dispatch) => {
     dispatch(
@@ -22,3 +23,9 @@ export const handleInitialData = () => (dispatch) =>
             console.log(err);
             alert('Opps, database connection had had some issues')
         })
+
+export const handleSignIn = (response) => (dispatch) =>
+    dispatch(
+        USER.signIn(response)
+    )
+

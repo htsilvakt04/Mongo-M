@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import LoginForm from '../shared/LoginForm';
 import { signIn } from '../../utils/api';
 import Error from '../../config';
+import { handleSignIn } from '../../actions';
+import { getUserName } from '../../reducers';
+import { App } from '../../config';
 
 class LoginPage extends React.Component {
     state = {
@@ -13,14 +16,18 @@ class LoginPage extends React.Component {
             type: 'warning'
         }
     }
+
     componentWillMount () {
         // append script to body tag and wait for it to be downloaded
         const facebookSDK = document.createElement("script");
         facebookSDK.src = "https://connect.facebook.net/en_US/sdk.js";
+        facebookSDK.async = true;
+        facebookSDK.id = "facebookSDK";
         document.body.appendChild(facebookSDK);
 
         window.addEventListener('load', function() {
             const facebookSDKINIT = document.createElement("script");
+            // todo: move app id to config ---> App variable above already inported
             facebookSDKINIT.text = "FB.init({appId: '1877035595944613', cookie: true, status: true, xfbml: true, state: 'silva', version : 'v2.9'})";
             document.body.appendChild(facebookSDKINIT);
         })
@@ -29,7 +36,7 @@ class LoginPage extends React.Component {
     toggleModal = (props) => {
         props ? this.setState(prevState => ({
             modal: {...props, show: !prevState.modal.show}
-        })) : this.setState(prevState => ({
+        }))  : this.setState(prevState => ({
             modal: {...prevState.modal, show: !prevState.modal.show}
         }))
     }
@@ -46,9 +53,11 @@ class LoginPage extends React.Component {
                 if (status >= 400) {
                     return this.toggleModal({type: 'error', title: 'Error! Please try again'})
                 }
-                
+                console.log('---___---', message);
+                this.props.handleSignIn({data: message});
+
                 // dispatch auth action here
-            })
+            }).catch( err => this.toggleModal({type: 'error', title: 'Error! Please try again'}))
 
         },{scope: 'public_profile,email', auth_type: 'rerequest', return_scopes: true});
     }
@@ -61,9 +70,15 @@ class LoginPage extends React.Component {
             <div>
                 <SweetAlert {...this.state.modal} onConfirm={this.toggleModal} />
                 <LoginForm handleLoginSocial={this.handleLoginSocial} handleSubmit={this.handleSubmit}/>
+                <h2>Welcome: {this.props.email}</h2>
             </div>
         )
     }
 }
 
-export default connect(null)(LoginPage)
+function mapStateToProps({user}) {
+    return {
+        email: getUserName(user)
+    }
+}
+export default connect(mapStateToProps, { handleSignIn })(LoginPage)
