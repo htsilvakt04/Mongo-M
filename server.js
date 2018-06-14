@@ -31,6 +31,8 @@ module.exports = (connection) => {
     app.use(session({
         secret: 'silva-handsome',
         name: 'silvaApp-session',
+        resave: true,
+        saveUninitialized: true,
         cookie: { maxAge: Number(process.env.COOKIE_LIFE_TIME) }, // 15 days
         store: new MongoStore({
             mongooseConnection: connection,

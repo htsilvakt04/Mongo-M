@@ -19,7 +19,8 @@
     "deploy": "npm run build && firebase deploy",
     "firebase-init": "firebase login && firebase init",
     "deploy-raw": "firebase deploy",
-    "test": "jest --colors --env=node --expand --verbose"
+    "test": "jest --colors --env=node --expand --verbose",
+    "test:watch": "jest --colors --env=node --expand --verbose --watch"
   },
   "babel": {
     "presets": [

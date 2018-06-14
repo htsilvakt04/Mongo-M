@@ -27,12 +27,9 @@ class LoginPage extends React.Component {
     }
 
     toggleModal = (props) => {
-        if (props) {
-            return this.setState(prevState => ({
-                modal: {...props, show: !prevState.modal.show}
-            }))
-        }
-        this.setState(prevState => ({
+        props ? this.setState(prevState => ({
+            modal: {...props, show: !prevState.modal.show}
+        })) : this.setState(prevState => ({
             modal: {...prevState.modal, show: !prevState.modal.show}
         }))
     }
@@ -55,6 +52,7 @@ class LoginPage extends React.Component {
 
         },{scope: 'public_profile,email', auth_type: 'rerequest', return_scopes: true});
     }
+
     handleSubmit = (event) => {
 
     }

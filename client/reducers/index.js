@@ -1,12 +1,13 @@
 import byIds, * as fromByIds from './byIDs';
 import byCat, * as fromByCat from './byCat';
+import user, * as fromUser from './user';
 import * as fromUserSearchText from './userSearchText';
 import currentPage from './currentPage';
 import userSearchText from './userSearchText';
 
 import { combineReducers } from 'redux';
 
-export default combineReducers({byIds, byCat, currentPage, userSearchText});
+export default combineReducers({byIds, byCat, currentPage, userSearchText, user});
 
 export const getItemsByCatAndFilter = (state, cat) => {
     if (cat === 'All') {
@@ -36,6 +37,9 @@ export const handleChangeBySearch = (state, val) =>
 
 export const getUserSearchText = (state) =>
     fromUserSearchText.getText(state.userSearchText)
+
+export const getUser = (state) => fromUser.getUser(state)
+
 
 
 
