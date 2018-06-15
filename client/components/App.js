@@ -9,6 +9,7 @@ import LoginPage from './login';
 import ItemDetail from './ItemDetail/ItemDetail';
 import { handleInitialData } from '../actions';
 import ScrollToTopRoute from './shared/ScrollToTopRoute';
+import CheckAuth from './shared/CheckAuth';
 
 class App extends React.Component {
     componentDidMount () {
@@ -33,7 +34,7 @@ class App extends React.Component {
                         <TransitionGroup>
                             <CSSTransition key={location.key} classNames="fade" timeout={200}>
                                 <Switch location={location}>
-                                    <ScrollToTopRoute path="/login" component={LoginPage}/>
+                                    <CheckAuth path="/login" component={LoginPage}/>
                                     <ScrollToTopRoute path="/item/:id" component={ItemDetail}/>
                                     <ScrollToTopRoute path="/:cat?" component={HomePage}/>
                                     <Route render={() => <h1>404</h1>}/>

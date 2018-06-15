@@ -33,7 +33,7 @@ module.exports = (connection) => {
         name: 'silvaApp-session',
         resave: true,
         saveUninitialized: true,
-        cookie: { maxAge: Number(process.env.COOKIE_LIFE_TIME) }, // 15 days
+        cookie: { maxAge: Number(process.env.COOKIE_LIFE_TIME), httpOnly: false }, // 15 days
         store: new MongoStore({
             mongooseConnection: connection,
             touchAfter: 24 * 3600, // time period in seconds,

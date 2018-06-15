@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import { getUserSearchText } from '../../reducers';
+import { isUserExist } from '../../reducers';
 import { handleSearch } from '../../actions/items';
 
 import style from './navbar.css';
@@ -13,6 +13,7 @@ class Navbar extends React.Component {
         this.props.handleSearch(val);
     }
     render () {
+        console.log('isUserExist: ', this.props.isUserExist);
         return (
             <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
                 <div className="container">
@@ -32,9 +33,14 @@ class Navbar extends React.Component {
                         </div>
                         <ul className="nav navbar-nav navbar-right col-xs-3">
                             <li>
-                                <Link to="/login" style={{color: '#fff'}}>
-                                    <span className={"glyphicon glyphicon-shopping-cart " + style["cart-icon"]} aria-hidden="true"></span>
-                                </Link>
+                                { this.props.isUserExist
+                                    ? (<Link to="/cart" style={{color: '#fff'}}>
+                                            <span className={"glyphicon glyphicon-shopping-cart " + style["cart-icon"]} aria-hidden="true"></span>
+                                      </Link>)
+                                    : (<Link to="/login" style={{color: '#fff'}}>
+                                            <span>Login</span>
+                                      </Link>)
+                                }
                             </li>
                         </ul>
                     </div>
@@ -49,7 +55,7 @@ class Navbar extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        searchText: getUserSearchText(state)
+        isUserExist: isUserExist(state)
     }
 }
-export default connect(null, { handleSearch })(Navbar);
+export default connect(mapStateToProps, { handleSearch })(Navbar);

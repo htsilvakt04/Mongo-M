@@ -40,6 +40,8 @@ export const getUserSearchText = (state) =>
 
 export const getUser = (state) => fromUser.getUser(state)
 export const getUserName = (state) => fromUser.getUserName(state)
+export const getUserEmail = (state) => fromUser.getUserEmail(state)
+export const isUserExist = (state) => fromUser.isUserExist(state)
 
 
 
