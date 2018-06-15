@@ -1,5 +1,6 @@
 import React from 'react'
 import SweetAlert from 'react-bootstrap-sweetalert';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LoginForm from '../shared/LoginForm';
 import { signIn } from '../../utils/api';
@@ -8,6 +9,8 @@ import { handleSignIn } from '../../actions';
 import { getUserName } from '../../reducers';
 import { App } from '../../config';
 import { constructScript } from './util';
+import {isUserExist} from "../../reducers";
+
 
 class LoginPage extends React.Component {
     state = {
@@ -51,6 +54,8 @@ class LoginPage extends React.Component {
 
                 // dispatch auth action here
                 this.props.handleSignIn({data: message});
+
+                this.props.history.push('/');
             }).catch( err => this.toggleModal({type: 'error', title: 'Error! Please try again'}))
 
         },{scope: 'public_profile,email', auth_type: 'rerequest', return_scopes: true});
@@ -60,6 +65,9 @@ class LoginPage extends React.Component {
 
     }
     render () {
+        if (this.props.isHavingUserDataInStore) {
+            return <Redirect to="/" />
+        }
         return (
             <div>
                 <SweetAlert {...this.state.modal} onConfirm={this.toggleModal} />
@@ -72,7 +80,8 @@ class LoginPage extends React.Component {
 
 function mapStateToProps({user}) {
     return {
-        email: getUserName(user)
+        email: getUserName(user),
+        isHavingUserDataInStore: isUserExist(user)
     }
 }
 export default connect(mapStateToProps, { handleSignIn })(LoginPage)
