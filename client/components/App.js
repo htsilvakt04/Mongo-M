@@ -8,9 +8,9 @@ import HomePage from './homepage/HomePage';
 import LoginPage from './login';
 import ItemDetail from './ItemDetail/ItemDetail';
 import { handleInitialData } from '../actions';
-import ScrollToTopRoute from './shared/ScrollToTopRoute';
-import CheckSessionExprired from './shared/CheckSessionExprired';
-import CheckAuth from './shared/CheckAuth';
+import ScrollToTopRoute from './shared/routes/ScrollToTopRoute';
+import CheckSessionExprired from './shared/routes/CheckSessionExprired';
+import CheckAuth from './shared/routes/CheckAuth';
 import Cart from './cart';
 
 class App extends React.Component {

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { Route, withRouter, Redirect  } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { isUserExist } from '../../reducers';
+import { isUserExist } from '../../../reducers/index';
 
 const CheckAuth = (props) => {
     const { component: Component, isHavingUserDataInStore, ...rest } = props;
 
-
-    return <Route {...rest} render={props => shouldRedirect ? <Redirect push to="/" /> : (<Component {...props} />)} />;
+    return <Route {...rest} render={props => isHavingUserDataInStore ? (<Component {...props} />) : <Redirect push to="/login" /> } />;
 }
 
 function mapStateToProps({user}) {

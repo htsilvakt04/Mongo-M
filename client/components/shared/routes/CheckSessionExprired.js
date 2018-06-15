@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, withRouter, Redirect  } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { isUserExist } from '../../reducers';
+import { isUserExist } from '../../../reducers/index';
 
 const CheckSessionExprired = (props) => {
     const { component: Component, isHavingUserDataInStore, ...rest } = props;

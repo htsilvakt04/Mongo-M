@@ -40084,15 +40084,15 @@ var _ItemDetail2 = _interopRequireDefault(_ItemDetail);
 
 var _actions = __webpack_require__(127);
 
-var _ScrollToTopRoute = __webpack_require__(649);
+var _ScrollToTopRoute = __webpack_require__(662);
 
 var _ScrollToTopRoute2 = _interopRequireDefault(_ScrollToTopRoute);
 
-var _CheckSessionExprired = __webpack_require__(661);
+var _CheckSessionExprired = __webpack_require__(663);
 
 var _CheckSessionExprired2 = _interopRequireDefault(_CheckSessionExprired);
 
-var _CheckAuth = __webpack_require__(650);
+var _CheckAuth = __webpack_require__(664);
 
 var _CheckAuth2 = _interopRequireDefault(_CheckAuth);
 
@@ -49439,117 +49439,8 @@ function mapStateToProps(state, currentProps) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(RelatedItems);
 
 /***/ }),
-/* 649 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(2);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouterDom = __webpack_require__(29);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ScrollToTopRoute = function (_Component) {
-    _inherits(ScrollToTopRoute, _Component);
-
-    function ScrollToTopRoute() {
-        _classCallCheck(this, ScrollToTopRoute);
-
-        return _possibleConstructorReturn(this, (ScrollToTopRoute.__proto__ || Object.getPrototypeOf(ScrollToTopRoute)).apply(this, arguments));
-    }
-
-    _createClass(ScrollToTopRoute, [{
-        key: 'componentDidUpdate',
-        value: function componentDidUpdate(prevProps) {
-            if (this.props.location.pathname !== prevProps.location.pathname) {
-                window.scrollTo(0, 0);
-            }
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _props = this.props,
-                Component = _props.component,
-                rest = _objectWithoutProperties(_props, ['component']);
-
-            return _react2.default.createElement(_reactRouterDom.Route, _extends({}, rest, { render: function render(props) {
-                    return _react2.default.createElement(Component, props);
-                } }));
-        }
-    }]);
-
-    return ScrollToTopRoute;
-}(_react.Component);
-
-exports.default = (0, _reactRouterDom.withRouter)(ScrollToTopRoute);
-
-/***/ }),
-/* 650 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _react = __webpack_require__(2);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouterDom = __webpack_require__(29);
-
-var _reactRedux = __webpack_require__(19);
-
-var _reducers = __webpack_require__(43);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-var CheckAuth = function CheckAuth(props) {
-    var Component = props.component,
-        isHavingUserDataInStore = props.isHavingUserDataInStore,
-        rest = _objectWithoutProperties(props, ['component', 'isHavingUserDataInStore']);
-
-    return _react2.default.createElement(_reactRouterDom.Route, _extends({}, rest, { render: function render(props) {
-            return shouldRedirect ? _react2.default.createElement(_reactRouterDom.Redirect, { push: true, to: '/' }) : _react2.default.createElement(Component, props);
-        } }));
-};
-
-function mapStateToProps(_ref) {
-    var user = _ref.user;
-
-    return {
-        isHavingUserDataInStore: (0, _reducers.isUserExist)(user)
-    };
-}
-exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps)(CheckAuth));
-
-/***/ }),
+/* 649 */,
+/* 650 */,
 /* 651 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -49698,7 +49589,73 @@ exports.default = thunk;
 /* 658 */,
 /* 659 */,
 /* 660 */,
-/* 661 */
+/* 661 */,
+/* 662 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(29);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ScrollToTopRoute = function (_Component) {
+    _inherits(ScrollToTopRoute, _Component);
+
+    function ScrollToTopRoute() {
+        _classCallCheck(this, ScrollToTopRoute);
+
+        return _possibleConstructorReturn(this, (ScrollToTopRoute.__proto__ || Object.getPrototypeOf(ScrollToTopRoute)).apply(this, arguments));
+    }
+
+    _createClass(ScrollToTopRoute, [{
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps) {
+            if (this.props.location.pathname !== prevProps.location.pathname) {
+                window.scrollTo(0, 0);
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _props = this.props,
+                Component = _props.component,
+                rest = _objectWithoutProperties(_props, ['component']);
+
+            return _react2.default.createElement(_reactRouterDom.Route, _extends({}, rest, { render: function render(props) {
+                    return _react2.default.createElement(Component, props);
+                } }));
+        }
+    }]);
+
+    return ScrollToTopRoute;
+}(_react.Component);
+
+exports.default = (0, _reactRouterDom.withRouter)(ScrollToTopRoute);
+
+/***/ }),
+/* 663 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49718,7 +49675,7 @@ var _reactRouterDom = __webpack_require__(29);
 
 var _reactRedux = __webpack_require__(19);
 
-var _reducers = __webpack_require__(43);
+var _index = __webpack_require__(43);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49740,10 +49697,56 @@ function mapStateToProps(_ref) {
     var user = _ref.user;
 
     return {
-        isHavingUserDataInStore: (0, _reducers.isUserExist)(user)
+        isHavingUserDataInStore: (0, _index.isUserExist)(user)
     };
 }
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps)(CheckSessionExprired));
+
+/***/ }),
+/* 664 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(29);
+
+var _reactRedux = __webpack_require__(19);
+
+var _index = __webpack_require__(43);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+var CheckAuth = function CheckAuth(props) {
+    var Component = props.component,
+        isHavingUserDataInStore = props.isHavingUserDataInStore,
+        rest = _objectWithoutProperties(props, ['component', 'isHavingUserDataInStore']);
+
+    return _react2.default.createElement(_reactRouterDom.Route, _extends({}, rest, { render: function render(props) {
+            return isHavingUserDataInStore ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouterDom.Redirect, { push: true, to: '/login' });
+        } }));
+};
+
+function mapStateToProps(_ref) {
+    var user = _ref.user;
+
+    return {
+        isHavingUserDataInStore: (0, _index.isUserExist)(user)
+    };
+}
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps)(CheckAuth));
 
 /***/ })
 /******/ ]);
