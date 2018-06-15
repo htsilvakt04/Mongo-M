@@ -17,6 +17,7 @@ export const getUser = (state) => state;
 export const getUserEmail = (state) => state.email;
 export const getUserName = (state) => state.name;
 export const isUserExist = (state) => Boolean(state.email);
+
 export const getUserCart = (state) => state.cart;
 
 export default user;

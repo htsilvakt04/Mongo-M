@@ -13,7 +13,6 @@ class Navbar extends React.Component {
         this.props.handleSearch(val);
     }
     render () {
-        console.log('isUserExist: ', this.props.isUserExist);
         return (
             <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
                 <div className="container">
@@ -53,9 +52,9 @@ class Navbar extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({user}) {
     return {
-        isUserExist: isUserExist(state)
+        isUserExist: isUserExist(user)
     }
 }
 export default connect(mapStateToProps, { handleSearch })(Navbar);

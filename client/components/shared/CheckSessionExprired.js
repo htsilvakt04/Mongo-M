@@ -3,9 +3,9 @@ import { Route, withRouter, Redirect  } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { isUserExist } from '../../reducers';
 
-const CheckAuth = (props) => {
+const CheckSessionExprired = (props) => {
     const { component: Component, isHavingUserDataInStore, ...rest } = props;
-
+    const shouldRedirect = isHavingUserDataInStore && document.cookie.indexOf('silvaApp-session') !== -1;
 
     return <Route {...rest} render={props => shouldRedirect ? <Redirect push to="/" /> : (<Component {...props} />)} />;
 }
@@ -15,4 +15,4 @@ function mapStateToProps({user}) {
         isHavingUserDataInStore: isUserExist(user)
     }
 }
-export default withRouter(connect(mapStateToProps)(CheckAuth));
+export default withRouter(connect(mapStateToProps)(CheckSessionExprired));
