@@ -1898,7 +1898,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             try {
                 oldLocale = globalLocale._abbr;
                 var aliasedRequire = require;
-                __webpack_require__(645)("./" + name);
+                __webpack_require__(646)("./" + name);
                 getSetGlobalLocale(oldLocale);
             } catch (e) {}
         }
@@ -32986,7 +32986,7 @@ var _reducers = __webpack_require__(55);
 
 var _reducers2 = _interopRequireDefault(_reducers);
 
-var _middlewares = __webpack_require__(649);
+var _middlewares = __webpack_require__(650);
 
 var _middlewares2 = _interopRequireDefault(_middlewares);
 
@@ -40072,13 +40072,13 @@ var _login = __webpack_require__(623);
 
 var _login2 = _interopRequireDefault(_login);
 
-var _ItemDetail = __webpack_require__(640);
+var _ItemDetail = __webpack_require__(641);
 
 var _ItemDetail2 = _interopRequireDefault(_ItemDetail);
 
 var _actions = __webpack_require__(127);
 
-var _ScrollToTopRoute = __webpack_require__(648);
+var _ScrollToTopRoute = __webpack_require__(649);
 
 var _ScrollToTopRoute2 = _interopRequireDefault(_ScrollToTopRoute);
 
@@ -47125,7 +47125,7 @@ var _actions = __webpack_require__(127);
 
 var _reducers = __webpack_require__(55);
 
-var _util = __webpack_require__(658);
+var _util = __webpack_require__(640);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -47195,24 +47195,13 @@ var LoginPage = function (_React$Component) {
         key: 'componentWillUnmount',
         value: function componentWillUnmount() {
             document.getElementById('facebookSDK').remove();
-            window.removeEventListener('load', this.initFBSDK);
         }
     }, {
         key: 'componentWillMount',
         value: function componentWillMount() {
             // append script to body tag and wait for it to be downloaded
-            var facebookSDK = document.createElement("script");
-            (0, _util.constructScript)(facebookSDK);
+            var facebookSDK = (0, _util.constructScript)();
             document.body.appendChild(facebookSDK);
-
-            this.initFBSDK = function () {
-                var facebookSDKINIT = document.createElement("script");
-                // todo: move app id to config ---> App variable above already inported
-                facebookSDKINIT.text = "FB.init({appId: '1877035595944613', cookie: true, status: true, xfbml: true, state: 'silva', version : 'v2.9'})";
-                document.body.appendChild(facebookSDKINIT);
-            };
-
-            window.addEventListener('load', this.initFBSDK);
         }
     }, {
         key: 'render',
@@ -48405,6 +48394,32 @@ var USER = exports.USER = {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+var constructScript = exports.constructScript = function constructScript() {
+    var facebookSDK = document.createElement("script");
+    facebookSDK.src = "https://connect.facebook.net/en_US/sdk.js";
+    facebookSDK.crossorigin = 'anonymous';
+    facebookSDK.async = true;
+    facebookSDK.id = "facebookSDK";
+
+    facebookSDK.onload = function () {
+        var facebookSDKINIT = document.createElement("script");
+        // todo: move app id to config ---> App variable above already inported
+        facebookSDKINIT.text = "FB.init({appId: '1877035595944613', cookie: true, status: true, xfbml: true, state: 'silva', version : 'v2.9'})";
+        document.body.appendChild(facebookSDKINIT);
+    };
+    return facebookSDK;
+};
+
+/***/ }),
+/* 641 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -48418,27 +48433,27 @@ var _reactRouterDom = __webpack_require__(35);
 
 var _reducers = __webpack_require__(55);
 
-var _Breadcrum = __webpack_require__(641);
+var _Breadcrum = __webpack_require__(642);
 
 var _Breadcrum2 = _interopRequireDefault(_Breadcrum);
 
-var _Heading = __webpack_require__(642);
+var _Heading = __webpack_require__(643);
 
 var _Heading2 = _interopRequireDefault(_Heading);
 
-var _Item = __webpack_require__(643);
+var _Item = __webpack_require__(644);
 
 var _Item2 = _interopRequireDefault(_Item);
 
-var _LatestReview = __webpack_require__(644);
+var _LatestReview = __webpack_require__(645);
 
 var _LatestReview2 = _interopRequireDefault(_LatestReview);
 
-var _CommentForm = __webpack_require__(646);
+var _CommentForm = __webpack_require__(647);
 
 var _CommentForm2 = _interopRequireDefault(_CommentForm);
 
-var _RelatedItems = __webpack_require__(647);
+var _RelatedItems = __webpack_require__(648);
 
 var _RelatedItems2 = _interopRequireDefault(_RelatedItems);
 
@@ -48490,7 +48505,7 @@ function mapStateToProps(state, currentProps) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps)(ItemDetail));
 
 /***/ }),
-/* 641 */
+/* 642 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48562,7 +48577,7 @@ var Breadcrum = function Breadcrum(_ref) {
 exports.default = (0, _reactRedux.connect)(null, { handleChangeCat: _actions.handleChangeCat })(Breadcrum);
 
 /***/ }),
-/* 642 */
+/* 643 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48627,7 +48642,7 @@ var Heading = function (_React$Component) {
 exports.default = Heading;
 
 /***/ }),
-/* 643 */
+/* 644 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48756,7 +48771,7 @@ var Item = function (_React$Component) {
 exports.default = Item;
 
 /***/ }),
-/* 644 */
+/* 645 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48869,7 +48884,7 @@ var LatestReview = function (_React$Component) {
 exports.default = LatestReview;
 
 /***/ }),
-/* 645 */
+/* 646 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -49134,10 +49149,10 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 645;
+webpackContext.id = 646;
 
 /***/ }),
-/* 646 */
+/* 647 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49300,7 +49315,7 @@ var CommentForm = function (_React$Component) {
 exports.default = (0, _reactRedux.connect)()(CommentForm);
 
 /***/ }),
-/* 647 */
+/* 648 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49391,7 +49406,7 @@ function mapStateToProps(state, currentProps) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(RelatedItems);
 
 /***/ }),
-/* 648 */
+/* 649 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49456,7 +49471,7 @@ var ScrollToTopRoute = function (_Component) {
 exports.default = (0, _reactRouterDom.withRouter)(ScrollToTopRoute);
 
 /***/ }),
-/* 649 */
+/* 650 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49468,11 +49483,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(83);
 
-var _logger = __webpack_require__(650);
+var _logger = __webpack_require__(651);
 
 var _logger2 = _interopRequireDefault(_logger);
 
-var _reduxThunk = __webpack_require__(651);
+var _reduxThunk = __webpack_require__(652);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
@@ -49483,7 +49498,7 @@ var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || _redux.com
 exports.default = composeEnhancers((0, _redux.applyMiddleware)(_reduxThunk2.default, _logger2.default));
 
 /***/ }),
-/* 650 */
+/* 651 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49508,7 +49523,7 @@ var logger = function logger(store) {
 exports.default = logger;
 
 /***/ }),
-/* 651 */
+/* 652 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49537,29 +49552,6 @@ var thunk = createThunkMiddleware();
 thunk.withExtraArgument = createThunkMiddleware;
 
 exports.default = thunk;
-
-/***/ }),
-/* 652 */,
-/* 653 */,
-/* 654 */,
-/* 655 */,
-/* 656 */,
-/* 657 */,
-/* 658 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var constructScript = exports.constructScript = function constructScript(facebookSDK) {
-    facebookSDK.src = "https://connect.facebook.net/en_US/sdk.js";
-    facebookSDK.crossorigin = true;
-    facebookSDK.async = true;
-    facebookSDK.id = "facebookSDK";
-};
 
 /***/ })
 /******/ ]);

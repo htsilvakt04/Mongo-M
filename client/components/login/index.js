@@ -17,24 +17,14 @@ class LoginPage extends React.Component {
             type: 'warning'
         }
     }
+
     componentWillUnmount() {
         document.getElementById('facebookSDK').remove();
-        window.removeEventListener('load', this.initFBSDK)
     }
     componentWillMount () {
         // append script to body tag and wait for it to be downloaded
-        const facebookSDK = document.createElement("script");
-        constructScript(facebookSDK);
+        const facebookSDK = constructScript();
         document.body.appendChild(facebookSDK);
-
-        this.initFBSDK = function() {
-            const facebookSDKINIT = document.createElement("script");
-            // todo: move app id to config ---> App variable above already inported
-            facebookSDKINIT.text = "FB.init({appId: '1877035595944613', cookie: true, status: true, xfbml: true, state: 'silva', version : 'v2.9'})";
-            document.body.appendChild(facebookSDKINIT);
-        }
-
-        window.addEventListener('load', this.initFBSDK)
     }
 
     toggleModal = (props) => {
