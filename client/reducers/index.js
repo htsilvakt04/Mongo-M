@@ -1,12 +1,13 @@
 import byIds, * as fromByIds from './byIDs';
 import byCat, * as fromByCat from './byCat';
 import user, * as fromUser from './user';
+import cart, * as fromCart from './cart';
 import * as fromUserSearchText from './userSearchText';
 import currentPage from './currentPage';
 import userSearchText from './userSearchText';
 import { combineReducers } from 'redux';
 
-export default combineReducers({byIds, byCat, currentPage, userSearchText, user});
+export default combineReducers({byIds, byCat, currentPage, userSearchText, user, cart});
 
 export const getItemsByCatAndFilter = (state, cat) => {
     if (cat === 'All') {
@@ -42,6 +43,10 @@ export const getUserName = (state) => fromUser.getUserName(state)
 export const getUserEmail = (state) => fromUser.getUserEmail(state)
 export const isUserExist = (state) => fromUser.isUserExist(state)
 
+
+export const getCartItemList = (state) => fromCart.getListItem(state)
+export const getCartError = (state) => fromCart.getError(state)
+export const getCartIsFetching = (state) => fromCart.getIsFetching(state)
 
 
 
