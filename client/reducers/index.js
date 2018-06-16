@@ -4,7 +4,6 @@ import user, * as fromUser from './user';
 import * as fromUserSearchText from './userSearchText';
 import currentPage from './currentPage';
 import userSearchText from './userSearchText';
-
 import { combineReducers } from 'redux';
 
 export default combineReducers({byIds, byCat, currentPage, userSearchText, user});

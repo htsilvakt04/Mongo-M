@@ -1,14 +1,18 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {isUserExist} from "../../reducers";
 
 class Cart extends React.Component {
-    
+    // send request to determine if user still ok && get the data come back
+    componentDidMount() {
+        this.fetchData();
+    }
+    componentDidUpdate() {
+        this.fetchData();
+    }
+    fetchData = () => {
+
+    }
     render () {
-        if (!this.props.isHavingUserDataInStore) {
-            return <Redirect to="/" />
-        }
         return (
             <h1>Welcome: {this.props.user.name} to Cart Route</h1>
         )
@@ -17,9 +21,8 @@ class Cart extends React.Component {
 
 function mapStateToProps({user}) {
     return {
-        user,
-        isHavingUserDataInStore: isUserExist(user)
-    };
+        user
+    }
 }
 
 export default connect(mapStateToProps)(Cart);
