@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { FETCH_CART_DATA_SUCCESS } from '../actions/cart';
 
 const email = (state = '', action) => {
     switch (action.type) {
@@ -23,14 +24,14 @@ const name = (state = '', action) => {
     }
 }
 
-const cart = (state = {}, action) => {
+const cart = (state = [], action) => {
     switch (action.type) {
-        case 'GET_USER_CART':
-        case 'GET_USER_INFO':
+        case FETCH_CART_DATA_SUCCESS:
+        case 'GET_USER_INFO': // TODO: check this lines
             if (action.error) {
                 return state;
             }
-            return action.data.cart;
+            return action.data;
         default:
             return state;
     }
@@ -38,7 +39,7 @@ const cart = (state = {}, action) => {
 
 export default combineReducers({email, name, cart});
 
-// some selector here
+// some selectors here
 export const getUser = (state) => state;
 export const getUserEmail = (state) => state.email;
 export const getUserName = (state) => state.name;

@@ -28,7 +28,7 @@ export const getCartData = () => {
             'Content-Type': 'application/json; charset=utf-8',
             'X-Requested-With': 'XMLHttpRequest'
         },
-    }).then( response => response.json().then( message => ({message, status: response.status})))
+    }).then( response => response.json().then( message => ({data: message.data, status: response.status})))
 }
 
 
