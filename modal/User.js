@@ -12,8 +12,8 @@ const UserSchema = mongoose.Schema({
     client: {
         type: [SocialClient]
     },
-    cart: {
-        type: [Cart]
+    cart_id: {
+        type: Number
     },
     created_at: {
         type: Date,

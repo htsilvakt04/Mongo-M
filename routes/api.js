@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('./auth')
 const itemController = require('../controllers/item');
+const cartController = require('../controllers/cart');
 
 const loginRoutes = require('./login');
 const logoutRoutes = require('./logout');
@@ -12,14 +14,7 @@ router.use('/register', registerRoutes);
 router.use('/logout', logoutRoutes);
 
 // data routes
-
-router.get('/category/:name', function (req, res) {
-    let categoryName = req.params.name;
-    // items.getCategories(function(categories) {
-    //     return res.json(categories);
-    // })
-    return res.json({data: 'silva'});
-});
+router.get('/cart', auth, cartController.retrieveCarts);
 
 // get items for : go though pages + when selecting the category
 
@@ -38,4 +33,11 @@ router.post("/item/:itemId/reviews", function(req, res) {
     });
 });
 
+router.get('/category/:name', function (req, res) {
+    let categoryName = req.params.name;
+    // items.getCategories(function(categories) {
+    //     return res.json(categories);
+    // })
+    return res.json({data: 'silva'});
+});
 module.exports = router;

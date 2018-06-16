@@ -1,9 +1,12 @@
 const mongoose = require('mongoose');
+const Item = require('../modal/Item').schema;
 
 const CartSchema = mongoose.Schema({
     _id: String,
     user_id: String,
-    items: Array,
+    items: {
+        type: [Item]
+    },
     created_at: {
         type: Date,
         default: Date.now()

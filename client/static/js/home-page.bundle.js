@@ -9888,9 +9888,8 @@ function handleAddReview(data) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.getInitialData = undefined;
+exports.getCartData = exports.signIn = exports.getInitialData = undefined;
 exports.addReview = addReview;
-exports.signIn = signIn;
 
 var _DATA = __webpack_require__(592);
 
@@ -9906,7 +9905,7 @@ function addReview(data) {
     return (0, _DATA._addReview)(data);
 }
 
-function signIn(url, code) {
+var signIn = exports.signIn = function signIn(url, code) {
     return fetch(url, {
         credentials: 'same-origin',
         method: 'POST',
@@ -9920,7 +9919,23 @@ function signIn(url, code) {
             return { message: message, status: response.status };
         });
     });
-}
+};
+
+var getCartData = exports.getCartData = function getCartData() {
+    var url = '/api/cart';
+    return fetch(url, {
+        credentials: 'same-origin',
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    }).then(function (response) {
+        return response.json().then(function (message) {
+            return { message: message, status: response.status };
+        });
+    });
+};
 
 /***/ }),
 /* 125 */
@@ -49654,7 +49669,11 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouterDom = __webpack_require__(20);
+
 var _reactRedux = __webpack_require__(15);
+
+var _api = __webpack_require__(124);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49678,7 +49697,11 @@ var Cart = function (_React$Component) {
             args[_key] = arguments[_key];
         }
 
-        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Cart.__proto__ || Object.getPrototypeOf(Cart)).call.apply(_ref, [this].concat(args))), _this), _this.fetchData = function () {}, _temp), _possibleConstructorReturn(_this, _ret);
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Cart.__proto__ || Object.getPrototypeOf(Cart)).call.apply(_ref, [this].concat(args))), _this), _this.fetchData = function () {
+            (0, _api.getCartData)().then(function (data) {
+                console.log('---___---', data);
+            });
+        }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
     _createClass(Cart, [{
@@ -49689,13 +49712,11 @@ var Cart = function (_React$Component) {
             this.fetchData();
         }
     }, {
-        key: 'componentDidUpdate',
-        value: function componentDidUpdate() {
-            this.fetchData();
-        }
-    }, {
         key: 'render',
         value: function render() {
+            if (!this.props.user.email) {
+                return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/' });
+            }
             return _react2.default.createElement(
                 'h1',
                 null,

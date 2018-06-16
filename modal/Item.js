@@ -27,4 +27,7 @@ const ItemSchema = mongoose.Schema({
 const ItemsModel = mongoose.model('Item', ItemSchema);
 
 // client:
-module.exports = ItemsModel;
+module.exports = {
+    model: ItemsModel,
+    schema: ItemSchema
+};

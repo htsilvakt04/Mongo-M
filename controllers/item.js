@@ -1,4 +1,4 @@
-const Item = require('../modal/Item');
+const Item = require('../modal/Item').model;
 
 const retrieveItems = (req, res) => {
     let {skip, limit} = req.query;
