@@ -16,8 +16,8 @@ export const handleChangeCat = (cat) => (dispatch) => {
 
 export const handleInitialData = () => (dispatch) =>
     getInitialData()
-        .then(items => {
-            dispatch(ITEM.getInit(items));
+        .then(data => {
+            dispatch(ITEM.getInit(data));
         })
         .catch((err) => {
             console.log(err);

@@ -1,10 +1,10 @@
 const byCat = (state = {}, action) => {
     switch (action.type) {
         case 'GET_INIT_ITEM':
-            const { data } = action;
+            const {items} = action.data;
+            return Object.keys(items).reduce((init, key) => {
+                let obj = items[key];
 
-            return Object.keys(data).reduce((init, key) => {
-                let obj = data[key];
                 let isExists = init[obj.category];
                 if (!isExists) init[obj.category] = [];
 

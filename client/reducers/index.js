@@ -47,6 +47,7 @@ export const isUserExist = (state) => fromUser.isUserExist(state)
 export const getCartItemList = (state) => fromCart.getListItem(state)
 export const getCartError = (state) => fromCart.getError(state)
 export const getCartIsFetching = (state) => fromCart.getIsFetching(state)
+export const getListItemId = (state) => fromCart.getListItemId(state)
 
 
 

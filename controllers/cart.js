@@ -1,13 +1,16 @@
 const Cart = require('../modal/Cart').model;
-
+const getUserFromSession = require('../routes/session');
 const retrieveCarts = (req, res) => {
     const user_id = req.session.user.user_id;
 
     Cart.find({user_id}, {items: 1, _id: 0})
         .then( (items, err) => {
-            if (items.length < 1) return res.json({data: items});
+            if (items.length < 1) return res.json({data: items, user: getUserFromSession(req)});
             const arrayOfItems = items[0].items;
-            return res.json({data: arrayOfItems})
+            return res.json({
+                data: arrayOfItems,
+                user: getUserFromSession(req)
+            })
         });
 }
 

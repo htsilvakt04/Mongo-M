@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.set('debug', true);
+// mongoose.set('debug', true); //***turn this on when you need to debug query in mongoose
 const assert = require('assert');
 // Connection URL
 const url = 'mongodb://localhost:27017/mongo-session';

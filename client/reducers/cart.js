@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-
-import { FETCH_CART_DATA_SUCCESS, FETCH_CART_DATA, FETCH_CART_DATA_FAIL } from "../actions/cart";
+import { GET_INIT_ITEM } from '../actions/items';
+import { FETCH_CART_DATA_SUCCESS, FETCH_CART_DATA, FETCH_CART_DATA_FAIL } from '../actions/cart';
 
 const isFetching = (state = false, action) => {
     switch (action.type) {
@@ -27,6 +27,9 @@ const error = (state = '', action) => {
 const items = () => {
     const byID = (state = {}, action) => {
         switch (action.type) {
+            case GET_INIT_ITEM:
+                if (action.data.cart.error) return state;
+                return {...action.data.cart.entities.items};
             case FETCH_CART_DATA_SUCCESS:
                 return {...state, ...action.data.entities.items}; // normalize here
             default:
@@ -35,6 +38,9 @@ const items = () => {
     }
     const IDs = (state = [], action) => {
         switch (action.type) {
+            case GET_INIT_ITEM:
+                if (action.data.cart.error) return state;
+                return [ ...action.data.cart.result];
             case FETCH_CART_DATA_SUCCESS:
                 return [...new Set([...state, ...action.data.result])]; // normalize here
             default:
@@ -51,3 +57,4 @@ export default combineReducers({isFetching, error, items: items()});
 export const getListItem = (state) => state.items.IDs.map(id => state.items.byID[id]);
 export const getError = (state) => state.error;
 export const getIsFetching = (state) => state.isFetching;
+export const getListItemId = (state) => state.items.IDs;

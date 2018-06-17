@@ -1,11 +1,10 @@
 import { getItems, _addReview} from './_DATA.js'
-import { formatItems} from './helpers';
 import { normalize } from 'normalizr';
-import { cartItems } from '../actions/schema';
-import {CART} from "../actions/cart";
+import {cartItems, Items} from '../actions/schema';
+import { CART } from '../actions/cart';
+import axios from "axios/index";
 
-export const getInitialData = () =>
-    getItems().then(items => formatItems(items))
+export const getInitialData = () => getItems()
 
 export function addReview(data) {
     return _addReview(data);
@@ -52,4 +51,29 @@ export const getCartData = () => (dispatch) => {
     }))
 }
 
+export const initCart = () => {
+    let cartUrl = '/api/cart';
 
+    return fetch(cartUrl, {
+        credentials: 'same-origin',
+        method: 'GET',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+    }).then( response => {
+        if (! response.ok) {
+            return {
+                error: 'no authentication',
+                entities: {},
+                result: []
+            };
+        }
+        return response.json();
+    });
+}
+export const initItem = (category, skip, limit) => {
+    let url = '/api/items';
+    let query = {params: {category, skip, limit}};
+
+    return axios.get(url, query).then( ({data}) => normalize(data.data, Items) )
+}
