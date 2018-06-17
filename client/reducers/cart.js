@@ -36,7 +36,7 @@ const items = () => {
     const IDs = (state = [], action) => {
         switch (action.type) {
             case FETCH_CART_DATA_SUCCESS:
-                return [...state, ...action.data.result]; // normalize here
+                return [...new Set([...state, ...action.data.result])]; // normalize here
             default:
                 return state;
         }

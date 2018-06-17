@@ -32,16 +32,19 @@ class Cart extends React.Component {
         }
         
         return (
-            <div>
-                <h1>Welcome: {name} to your Cart</h1>
-                {cart.error &&
-                    <h2>There were some errors, please try agian</h2>
-                }
-                <hr/>
-                {items.length > 0
-                    ? <ListItem items={items}/>
-                    : <h3>There is no item yet!</h3>
-                }
+            <div className="container">
+                <div className="row">
+
+                    <h1>Welcome: {name} to your Cart</h1>
+                    {cart.error &&
+                        <h2>There were some errors, please try agian</h2>
+                    }
+                    {items.length > 0
+                        ? <ListItem items={items}/>
+                        : <h3>There is no item yet!</h3>
+                    }
+                    
+                </div>
             </div>
         )
     }

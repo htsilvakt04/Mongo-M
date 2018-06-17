@@ -51,6 +51,7 @@
     "morgan": "^1.6.1",
     "newrelic": "^3.3.0",
     "normalizr": "^3.2.4",
+    "prop-types": "^15.6.1",
     "qs": "^6.5.2",
     "query-string": "^6.1.0",
     "react": "^16.2.0",
