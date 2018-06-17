@@ -15,6 +15,14 @@ router.use('/logout', logoutRoutes);
 
 // data routes
 router.get('/cart', auth, cartController.retrieveCarts);
+router.post('/cart/item', auth, cartController.saveItemToCart);
+
+
+
+
+
+
+
 
 // get items for : go though pages + when selecting the category
 

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Review = require('./Review');
 
 // name, email, image, id, language
-const ItemSchema = mongoose.Schema({
+const ItemInCartSchema = mongoose.Schema({
     _id: Number,
     title: String,
     slogan: String,
@@ -14,6 +14,7 @@ const ItemSchema = mongoose.Schema({
     reviews: {
         type: [Review]
     },
+    quantity: Number,
     created_at: {
         type: Date,
         default: Date.now()
@@ -24,10 +25,5 @@ const ItemSchema = mongoose.Schema({
     }
 });
 
-const ItemsModel = mongoose.model('Item', ItemSchema);
-
 // client:
-module.exports = {
-    model: ItemsModel,
-    schema: ItemSchema
-};
+module.exports = ItemInCartSchema;
