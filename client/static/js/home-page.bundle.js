@@ -10095,6 +10095,8 @@ var FETCH_CART_DATA = exports.FETCH_CART_DATA = 'FETCH_CART_DATA';
 var FETCH_CART_DATA_SUCCESS = exports.FETCH_CART_DATA_SUCCESS = 'FETCH_CART_DATA_SUCCESS';
 var FETCH_CART_DATA_FAIL = exports.FETCH_CART_DATA_FAIL = 'FETCH_CART_DATA_FAIL';
 var ADD_ITEM_TO_CART_SUCCESS = exports.ADD_ITEM_TO_CART_SUCCESS = 'ADD_ITEM_TO_CART_SUCCESS';
+var CHANGE_ITEM_QUANTITY_SUCCESS = exports.CHANGE_ITEM_QUANTITY_SUCCESS = 'CHANGE_ITEM_QUANTITY_SUCCESS';
+var CHANGE_ITEM_QUANTITY_FAIL = exports.CHANGE_ITEM_QUANTITY_FAIL = 'CHANGE_ITEM_QUANTITY_FAIL';
 
 var CART = exports.CART = {
     success: function success(data) {
@@ -10117,6 +10119,18 @@ var CART = exports.CART = {
         return {
             type: ADD_ITEM_TO_CART_SUCCESS,
             item: item
+        };
+    },
+    changeQuantitySuccess: function changeQuantitySuccess(item_id, value) {
+        return {
+            type: CHANGE_ITEM_QUANTITY_SUCCESS,
+            quantity: value
+        };
+    },
+    changeQuantityFail: function changeQuantityFail(item_id, value) {
+        return {
+            type: CHANGE_ITEM_QUANTITY_FAIL,
+            quantity: value
         };
     }
 };
@@ -10507,7 +10521,7 @@ exports.default = PolymorphicSchema;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.handleSignIn = exports.handleInitialData = exports.handleChangeCat = undefined;
+exports.changeItemQuantity = exports.handleSignIn = exports.handleInitialData = exports.handleChangeCat = undefined;
 
 var _category = __webpack_require__(649);
 
@@ -10518,6 +10532,8 @@ var _api = __webpack_require__(62);
 var _items = __webpack_require__(67);
 
 var _user = __webpack_require__(650);
+
+var _cart = __webpack_require__(126);
 
 var handleChangeCat = exports.handleChangeCat = function handleChangeCat(cat) {
     return function (dispatch) {
@@ -10540,6 +10556,12 @@ var handleInitialData = exports.handleInitialData = function handleInitialData()
 var handleSignIn = exports.handleSignIn = function handleSignIn(response) {
     return function (dispatch) {
         return dispatch(_user.USER.signIn(response));
+    };
+};
+
+var changeItemQuantity = exports.changeItemQuantity = function changeItemQuantity(item_id, value) {
+    return function (dispatch) {
+        dispatch(_cart.CART.changeQuantitySuccess(item_id, value.newValue));
     };
 };
 
@@ -51060,9 +51082,13 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRedux = __webpack_require__(15);
+
 var _ListItem = __webpack_require__(666);
 
 var _ListItem2 = _interopRequireDefault(_ListItem);
+
+var _actions = __webpack_require__(130);
 
 var _Item = __webpack_require__(667);
 
@@ -51092,14 +51118,31 @@ var ListItem = function (_React$Component) {
     _inherits(ListItem, _React$Component);
 
     function ListItem() {
+        var _ref;
+
+        var _temp, _this, _ret;
+
         _classCallCheck(this, ListItem);
 
-        return _possibleConstructorReturn(this, (ListItem.__proto__ || Object.getPrototypeOf(ListItem)).apply(this, arguments));
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ListItem.__proto__ || Object.getPrototypeOf(ListItem)).call.apply(_ref, [this].concat(args))), _this), _this.handleChangeQuantity = function (item, newValue) {
+            // should check if value === 0 => alert('Are you sure?')
+            var oldValue = item.quantity,
+                id = item._id;
+
+
+            _this.props.changeItemQuantity(id, { oldValue: oldValue, newValue: newValue });
+        }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
     _createClass(ListItem, [{
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
             var items = this.props.items;
             return _react2.default.createElement(
                 'div',
@@ -51143,7 +51186,7 @@ var ListItem = function (_React$Component) {
                             _TableBody2.default,
                             null,
                             items.map(function (item) {
-                                return _react2.default.createElement(_Item2.default, { key: item._id, item: item });
+                                return _react2.default.createElement(_Item2.default, { key: item._id, item: item, handleChangeQuantity: _this2.handleChangeQuantity });
                             }),
                             _react2.default.createElement(
                                 'tr',
@@ -51197,7 +51240,7 @@ var ListItem = function (_React$Component) {
     return ListItem;
 }(_react2.default.Component);
 
-exports.default = ListItem;
+exports.default = (0, _reactRedux.connect)(null, { changeItemQuantity: _actions.changeItemQuantity })(ListItem);
 
 /***/ }),
 /* 666 */
@@ -51227,6 +51270,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Item = function Item(props) {
     var item = props.item;
+    var handleChangeQuantity = props.handleChangeQuantity;
+
     return _react2.default.createElement(
         'tr',
         null,
@@ -51256,13 +51301,38 @@ var Item = function Item(props) {
                 { action: '', method: 'post' },
                 _react2.default.createElement(
                     'select',
-                    { name: 'quantity', onChange: function onChange() {
-                            return null;
+                    { name: 'quantity', onChange: function onChange(event) {
+                            return handleChangeQuantity(item, event.target.value);
                         } },
                     _react2.default.createElement(
                         'option',
                         { value: '0' },
                         '0 (Remove)'
+                    ),
+                    _react2.default.createElement(
+                        'option',
+                        { value: '1' },
+                        '1'
+                    ),
+                    _react2.default.createElement(
+                        'option',
+                        { value: '2' },
+                        '2'
+                    ),
+                    _react2.default.createElement(
+                        'option',
+                        { value: '3' },
+                        '3'
+                    ),
+                    _react2.default.createElement(
+                        'option',
+                        { value: '4' },
+                        '4'
+                    ),
+                    _react2.default.createElement(
+                        'option',
+                        { value: '5' },
+                        '5'
                     )
                 )
             )
@@ -51275,7 +51345,7 @@ var Item = function Item(props) {
         _react2.default.createElement(
             'td',
             null,
-            item.price
+            item.price * item.quantity
         )
     );
 };

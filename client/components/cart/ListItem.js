@@ -1,11 +1,19 @@
-import React from 'react'
+import React from 'react';
+import { connect } from 'react-redux';
 import style from './css/ListItem.css';
+import { changeItemQuantity } from '../../actions';
 import Item from './Item';
 import TableHead from '../dump/TableHead';
 import TableBody from '../dump/TableBody';
 import RowWithCol from '../dump/RowWithCol';
 
 class ListItem extends React.Component {
+    handleChangeQuantity = (item, newValue) => {
+        // should check if value === 0 => alert('Are you sure?')
+        const { quantity: oldValue, _id: id } = item;
+
+        this.props.changeItemQuantity(id, {oldValue, newValue});
+    }
     render () {
         const items = this.props.items;
         return (
@@ -21,7 +29,7 @@ class ListItem extends React.Component {
                         </TableHead>
                         <TableBody>
                             {items.map(item =>
-                                <Item key={item._id} item={item}/>
+                                <Item key={item._id} item={item} handleChangeQuantity={this.handleChangeQuantity}/>
                             )}
                             <tr>
                                 <td>&nbsp;</td>
@@ -41,4 +49,4 @@ class ListItem extends React.Component {
     }
 }
 
-export default ListItem;
+export default connect(null, { changeItemQuantity })(ListItem);

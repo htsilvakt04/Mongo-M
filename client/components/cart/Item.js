@@ -2,14 +2,20 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 const Item = (props) => {
     const item = props.item;
+    const {handleChangeQuantity} = props;
     return (
         <tr>
             <td><Link to={"/item/" + item._id}>{item.title}</Link></td>
             <td className="muted center_text"><Link to={"/item/" + item._id}><img width="300" src={"/static/" + item.img_url}/></Link></td>
             <td>
                 <form action="" method="post">
-                    <select name="quantity" onChange={() => null}>
+                    <select name="quantity" onChange={(event) => handleChangeQuantity(item, event.target.value)}>
                         <option value="0">0 (Remove)</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
                     </select>
                 </form>
             </td>
@@ -17,7 +23,7 @@ const Item = (props) => {
                 {item.price}
             </td>
             <td>
-                {item.price}
+                {item.price * item.quantity}
             </td>
         </tr>
     )
