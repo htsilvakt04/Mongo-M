@@ -2,8 +2,21 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getListItemId } from '../../reducers';
 import { calculateRating } from './util';
+import { addItemToCart } from '../../utils/api';
 
 class Item extends React.Component {
+    state = {
+        isAdding: false
+    }
+
+    addItemToCart = () => {
+        this.setState(prevState => ({isAdding: !prevState.isAdding}), () => {
+            this.props.addItemToCart().then((data, error) => {
+                this.setState(prevState => ({isAdding: !prevState.isAdding}));
+                if (error) alert('can not add item to cart');
+            })
+        })
+    }
     render () {
         let item = this.props.item;
         let reviews = item.reviews;
@@ -34,10 +47,12 @@ class Item extends React.Component {
                     </p>
                     {this.props.isBelongToCart
                         ? <button className="btn btn-primary" disabled>This item was in your cart</button>
-                        : (<button className="btn btn-primary" type="submit">
-                                Add to cart
-                                <span className="glyphicon glyphicon-chevron-right"></span>
-                          </button>)}
+                        : this.props.isAdding
+                            ? <span>spinner here</span>
+                            : (<button className="btn btn-primary" onClick={this.addItemToCart}>
+                                    Add to cart
+                                    <span className="glyphicon glyphicon-chevron-right"></span>
+                              </button>)}
                 </div>
             </div>
         )
@@ -46,9 +61,18 @@ class Item extends React.Component {
 
 function mapStateToProps({cart}, {item}) {
     const isBelongToCart = getListItemId(cart).includes(item._id);
+
     return {
-        isBelongToCart
+        isBelongToCart,
     }
 }
 
-export default connect(mapStateToProps)(Item);
+function mapDispatchToProps(dispatch, ownProps) {
+    const id = ownProps.item._id;
+    return {
+        addItemToCart: () =>
+            dispatch(addItemToCart(id))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Item);

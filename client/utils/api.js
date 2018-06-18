@@ -77,3 +77,18 @@ export const initItem = (category, skip, limit) => {
 
     return axios.get(url, query).then( ({data}) => normalize(data.data, Items) )
 }
+export const addItemToCart = (item_id) => (dispatch) => {
+    const url = '/api/cart/item';
+    return fetch(url, {
+        credentials: 'same-origin',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify({item_id})
+    }).then( response => {
+        console.log('---___---', response);
+    } )
+
+}

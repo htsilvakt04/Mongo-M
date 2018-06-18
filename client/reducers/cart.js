@@ -36,6 +36,7 @@ const items = () => {
                 return state;
         }
     }
+
     const IDs = (state = [], action) => {
         switch (action.type) {
             case GET_INIT_ITEM:
