@@ -1,8 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import style from './css/Item.css';
 const Item = (props) => {
     const item = props.item;
     const {handleChangeQuantity} = props;
+    const {handleRemoveItem} = props;
     return (
         <tr>
             <td><Link to={"/item/" + item._id}>{item.title}</Link></td>
@@ -10,13 +12,13 @@ const Item = (props) => {
             <td>
                 <form action="" method="post">
                     <select name="quantity" onChange={(event) => handleChangeQuantity(item, event.target.value)}>
-                        <option value="0">0 (Remove)</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>
+                    <button onClick={() => handleRemoveItem(item._id)} className={"btn " + style["remove-btn"]}>X</button>
                 </form>
             </td>
             <td>

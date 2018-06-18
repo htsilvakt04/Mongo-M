@@ -1,6 +1,6 @@
 import { CATEGORY } from './category';
 import { PAGE } from './page';
-import { getInitialData } from '../utils/api';
+import { getInitialData, requestChangeItemQuantity } from '../utils/api';
 import { ITEM } from './items';
 import { USER } from '../actions/user';
 import { CART } from '../actions/cart';
@@ -25,14 +25,14 @@ export const handleInitialData = () => (dispatch) =>
             alert('Opps, database connection had had some issues')
         })
 
-export const handleSignIn = (response) => (dispatch) =>
-    dispatch(
-        USER.signIn(response)
-    )
+export const handleSignIn = (response) => (dispatch) => dispatch(USER.signIn(response))
 
-export const changeItemQuantity = (item_id, value) => (dispatch) => {
-    dispatch(CART.changeQuantitySuccess(item_id, value.newValue));
-
-
+export const changeItemQuantity = (item_id, quantity) => (dispatch) => {
+    dispatch(CART.changeQuantitySuccess(item_id, quantity));
+    requestChangeItemQuantity(item_id, quantity)
+        .then(data => {
+            if (data.error) return dispatch(CART.changeQuantityFail(item_id, quantity));
+        })
+        .catch(err => dispatch(CART.changeQuantityFail(item_id, quantity)));
 }
 

@@ -8,11 +8,11 @@ import TableBody from '../dump/TableBody';
 import RowWithCol from '../dump/RowWithCol';
 
 class ListItem extends React.Component {
-    handleChangeQuantity = (item, newValue) => {
-        // should check if value === 0 => alert('Are you sure?')
-        const { quantity: oldValue, _id: id } = item;
+    handleChangeQuantity = (item_id, quantity) => {
+        this.props.changeItemQuantity(item_id, quantity);
+    }
+    handleRemoveItem = (item_id) => {
 
-        this.props.changeItemQuantity(id, {oldValue, newValue});
     }
     render () {
         const items = this.props.items;
@@ -29,7 +29,7 @@ class ListItem extends React.Component {
                         </TableHead>
                         <TableBody>
                             {items.map(item =>
-                                <Item key={item._id} item={item} handleChangeQuantity={this.handleChangeQuantity}/>
+                                <Item key={item._id} item={item} handleRemoveItem={this.handleRemoveItem} handleChangeQuantity={this.handleChangeQuantity}/>
                             )}
                             <tr>
                                 <td>&nbsp;</td>

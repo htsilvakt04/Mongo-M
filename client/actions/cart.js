@@ -28,16 +28,16 @@ export const CART = {
             item
         }
     },
-    changeQuantitySuccess(item_id, value) {
+    changeQuantitySuccess(item_id, quantity) {
         return {
             type: CHANGE_ITEM_QUANTITY_SUCCESS,
-            quantity: value
+            quantity
         }
     },
-    changeQuantityFail(item_id, value) {
+    changeQuantityFail(item_id, quantity) {
         return {
             type: CHANGE_ITEM_QUANTITY_FAIL,
-            quantity: value
+            quantity
         }
     }
 }

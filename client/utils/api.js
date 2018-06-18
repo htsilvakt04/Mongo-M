@@ -95,3 +95,25 @@ export const addItemToCart = (item_id) => (dispatch, getState) => {
         return data;
     })
 }
+export const requestChangeItemQuantity = (item_id, quantity) => {
+    const url = '/api/somewhere'; //TODO: fill in here
+
+    return fetch(url, {
+        credentials: 'same-origin',
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify({item_id, quantity})
+    }).then(response => {
+        if (! response.ok) {
+            return {
+                error: 'no authentication',
+                data: [],
+                status: response.status
+            };
+        }
+        return response.json();
+    })
+}
