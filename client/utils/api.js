@@ -87,8 +87,8 @@ export const addItemToCart = (item_id) => (dispatch) => {
             'X-Requested-With': 'XMLHttpRequest'
         },
         body: JSON.stringify({item_id})
-    }).then( response => {
-        console.log('---___---', response);
-    } )
-
+    }).then(response => response.json()).then(data => {
+        dispatch(CART.addItemToCart(data.item_id))
+        return data;
+    })
 }

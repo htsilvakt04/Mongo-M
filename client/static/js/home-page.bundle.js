@@ -7533,7 +7533,10 @@ var addItemToCart = exports.addItemToCart = function addItemToCart(item_id) {
             },
             body: JSON.stringify({ item_id: item_id })
         }).then(function (response) {
-            console.log('---___---', response);
+            return response.json();
+        }).then(function (data) {
+            dispatch(_cart.CART.addItemToCart(data.item_id));
+            return data;
         });
     };
 };
@@ -50050,7 +50053,7 @@ var Item = function (_React$Component) {
                         'button',
                         { className: 'btn btn-primary', disabled: true },
                         'This item was in your cart'
-                    ) : this.props.isAdding ? _react2.default.createElement(
+                    ) : this.state.isAdding ? _react2.default.createElement(
                         'span',
                         null,
                         'spinner here'

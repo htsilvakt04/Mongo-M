@@ -47,7 +47,7 @@ class Item extends React.Component {
                     </p>
                     {this.props.isBelongToCart
                         ? <button className="btn btn-primary" disabled>This item was in your cart</button>
-                        : this.props.isAdding
+                        : this.state.isAdding
                             ? <span>spinner here</span>
                             : (<button className="btn btn-primary" onClick={this.addItemToCart}>
                                     Add to cart
