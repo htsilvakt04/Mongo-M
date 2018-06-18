@@ -30,7 +30,7 @@ CartModel.saveItem = async function (itemId, user_id) {
     const originalItem = await Item.findOne({_id: itemId}).then( doc => doc._doc);
     const itemToSave = {...originalItem, quantity: 1};
 
-    return await this.updateOne({user_id}, {$push: {items: itemToSave}}).then(doc => doc)
+    return await this.findOneAndUpdate({user_id}, {$push: {items: itemToSave}}, {upsert: true, new: true}).then(doc => doc)
 }
 
 // mono: > carts.find({items: {$elemMatch: {_id: 4}}})

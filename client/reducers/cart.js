@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { GET_INIT_ITEM } from '../actions/items';
-import { FETCH_CART_DATA_SUCCESS, FETCH_CART_DATA, FETCH_CART_DATA_FAIL } from '../actions/cart';
+import { FETCH_CART_DATA_SUCCESS, FETCH_CART_DATA, FETCH_CART_DATA_FAIL, ADD_ITEM_TO_CART_SUCCESS } from '../actions/cart';
 
 const isFetching = (state = false, action) => {
     switch (action.type) {
@@ -31,7 +31,14 @@ const items = () => {
                 if (action.data.cart.error) return state;
                 return {...action.data.cart.entities.items};
             case FETCH_CART_DATA_SUCCESS:
-                return {...state, ...action.data.entities.items}; // normalize here
+                return {...action.data.entities.items}; // normalize here
+            case ADD_ITEM_TO_CART_SUCCESS:
+                return {
+                    ...state,
+                    [action.item._id]: {
+                        ...action.item
+                    }
+                }
             default:
                 return state;
         }
@@ -43,7 +50,9 @@ const items = () => {
                 if (action.data.cart.error) return state;
                 return [ ...action.data.cart.result];
             case FETCH_CART_DATA_SUCCESS:
-                return [...new Set([...state, ...action.data.result])]; // normalize here
+                return [...action.data.result]; // normalize here
+            case ADD_ITEM_TO_CART_SUCCESS:
+                return [...state, action.item._id];
             default:
                 return state;
         }

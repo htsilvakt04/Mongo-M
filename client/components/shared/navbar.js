@@ -52,9 +52,9 @@ class Navbar extends React.Component {
     }
 }
 
-function mapStateToProps({user}) {
+function mapStateToProps(state) {
     return {
-        isUserExist: isUserExist(user)
+        isUserExist: isUserExist(state)
     }
 }
 export default connect(mapStateToProps, { handleSearch })(Navbar);

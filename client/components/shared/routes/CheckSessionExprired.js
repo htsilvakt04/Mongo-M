@@ -10,9 +10,9 @@ const CheckSessionExprired = (props) => {
     return <Route {...rest} render={props => shouldRedirect ? <Redirect push to="/" /> : (<Component {...props} />)} />;
 }
 
-function mapStateToProps({user}) {
+function mapStateToProps(state) {
     return {
-        isHavingUserDataInStore: isUserExist(user)
+        isHavingUserDataInStore: isUserExist(state)
     }
 }
 export default withRouter(connect(mapStateToProps)(CheckSessionExprired));

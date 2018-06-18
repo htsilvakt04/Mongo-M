@@ -1,20 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getListItemId } from '../../reducers';
+import { getListItemId, isUserExist } from '../../reducers';
 import { calculateRating } from './util';
 import { addItemToCart } from '../../utils/api';
 
 class Item extends React.Component {
-    state = {
-        isAdding: false
-    }
-
     addItemToCart = () => {
-        this.setState(prevState => ({isAdding: !prevState.isAdding}), () => {
-            this.props.addItemToCart().then((data, error) => {
-                this.setState(prevState => ({isAdding: !prevState.isAdding}));
-                if (error) alert('can not add item to cart');
-            })
+        if (!this.props.isUserLoggedin) {
+            const button = document.getElementById('add-to-cart').innerText = 'You need to login!!!';
+            return;
+        }
+        this.props.addItemToCart().then((data, error) => {
+            if (error) alert('can not add item to cart');
         })
     }
     render () {
@@ -47,23 +44,23 @@ class Item extends React.Component {
                     </p>
                     {this.props.isBelongToCart
                         ? <button className="btn btn-primary" disabled>This item was in your cart</button>
-                        : this.state.isAdding
-                            ? <span>spinner here</span>
-                            : (<button className="btn btn-primary" onClick={this.addItemToCart}>
-                                    Add to cart
-                                    <span className="glyphicon glyphicon-chevron-right"></span>
-                              </button>)}
+                        : (<button className="btn btn-primary" id="add-to-cart" onClick={this.addItemToCart}>
+                                Add to cart
+                                <span className="glyphicon glyphicon-chevron-right"></span>
+                          </button>)}
                 </div>
             </div>
         )
     }
 }
 
-function mapStateToProps({cart}, {item}) {
-    const isBelongToCart = getListItemId(cart).includes(item._id);
+function mapStateToProps(state, {item}) {
+    const isBelongToCart = getListItemId(state).includes(item._id);
+    const isUserLoggedin = isUserExist(state);
 
     return {
         isBelongToCart,
+        isUserLoggedin
     }
 }
 

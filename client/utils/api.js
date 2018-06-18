@@ -1,8 +1,9 @@
 import { getItems, _addReview} from './_DATA.js'
 import { normalize } from 'normalizr';
+import axios from "axios/index";
 import {cartItems, Items} from '../actions/schema';
 import { CART } from '../actions/cart';
-import axios from "axios/index";
+import { getItemsById } from '../reducers';
 
 export const getInitialData = () => getItems()
 
@@ -77,7 +78,7 @@ export const initItem = (category, skip, limit) => {
 
     return axios.get(url, query).then( ({data}) => normalize(data.data, Items) )
 }
-export const addItemToCart = (item_id) => (dispatch) => {
+export const addItemToCart = (item_id) => (dispatch, getState) => {
     const url = '/api/cart/item';
     return fetch(url, {
         credentials: 'same-origin',
@@ -88,7 +89,9 @@ export const addItemToCart = (item_id) => (dispatch) => {
         },
         body: JSON.stringify({item_id})
     }).then(response => response.json()).then(data => {
-        dispatch(CART.addItemToCart(data.item_id))
+        const item = getItemsById(getState(), data.item_id);
+        
+        dispatch(CART.addItemToCart(item))
         return data;
     })
 }

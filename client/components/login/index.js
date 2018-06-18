@@ -78,10 +78,10 @@ class LoginPage extends React.Component {
     }
 }
 
-function mapStateToProps({user}) {
+function mapStateToProps(state) {
     return {
-        email: getUserName(user),
-        isHavingUserDataInStore: isUserExist(user)
+        email: getUserName(state),
+        isHavingUserDataInStore: isUserExist(state)
     }
 }
 export default connect(mapStateToProps, { handleSignIn })(LoginPage)

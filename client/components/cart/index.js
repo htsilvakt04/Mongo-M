@@ -50,13 +50,13 @@ class Cart extends React.Component {
     }
 }
 
-function mapStateToProps({user, cart}) {
+function mapStateToProps(state) {
     return {
-        user,
+        user: state.user,
         cart: {
-            error: getCartError(cart),
-            isFetching: getCartIsFetching(cart),
-            items: getCartItemList(cart)
+            error: getCartError(state),
+            isFetching: getCartIsFetching(state),
+            items: getCartItemList(state)
         }
     }
 }

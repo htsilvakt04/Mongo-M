@@ -9,9 +9,9 @@ const CheckAuth = (props) => {
     return <Route {...rest} render={props => isHavingUserDataInStore ? (<Component {...props} />) : <Redirect push to="/login" /> } />;
 }
 
-function mapStateToProps({user}) {
+function mapStateToProps(state) {
     return {
-        isHavingUserDataInStore: isUserExist(user)
+        isHavingUserDataInStore: isUserExist(state)
     }
 }
 export default withRouter(connect(mapStateToProps)(CheckAuth));

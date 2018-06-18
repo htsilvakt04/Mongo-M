@@ -38,16 +38,15 @@ export const handleChangeBySearch = (state, val) =>
 export const getUserSearchText = (state) =>
     fromUserSearchText.getText(state.userSearchText)
 
-export const getUser = (state) => fromUser.getUser(state)
-export const getUserName = (state) => fromUser.getUserName(state)
-export const getUserEmail = (state) => fromUser.getUserEmail(state)
-export const isUserExist = (state) => fromUser.isUserExist(state)
+export const getUser = (state) => fromUser.getUser(state.user)
+export const getUserName = (state) => fromUser.getUserName(state.user)
+export const getUserEmail = (state) => fromUser.getUserEmail(state.user)
+export const isUserExist = (state) => fromUser.isUserExist(state.user)
 
-
-export const getCartItemList = (state) => fromCart.getListItem(state)
-export const getCartError = (state) => fromCart.getError(state)
-export const getCartIsFetching = (state) => fromCart.getIsFetching(state)
-export const getListItemId = (state) => fromCart.getListItemId(state)
+export const getCartItemList = (state) => fromCart.getListItem(state.cart)
+export const getCartError = (state) => fromCart.getError(state.cart)
+export const getCartIsFetching = (state) => fromCart.getIsFetching(state.cart)
+export const getListItemId = (state) => fromCart.getListItemId(state.cart)
 
 
 

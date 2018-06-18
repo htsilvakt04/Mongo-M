@@ -19,10 +19,10 @@ export const CART = {
     start: {
         type: FETCH_CART_DATA
     },
-    addItemToCart (item_id) {
+    addItemToCart (item) {
         return {
             type: ADD_ITEM_TO_CART_SUCCESS,
-            item_id
+            item
         }
     }
 }

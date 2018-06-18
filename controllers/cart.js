@@ -22,7 +22,7 @@ const saveItemToCart = (req, res) => {
         if (doc !== null) return res.status(403).send('No way!');
         // if not => ok... save the item to cart with quantity of 1s
         Cart.saveItem(item_id, user_id).then( doc => {
-            return doc.nModified === 1 ? res.send({item_id}) : res.status(500).send('Can not save item to cart')
+            return doc.user_id === user_id ? res.send({item_id}) : res.status(500).send('Can not save item to cart')
         })
     }).catch(err => res.status(500).send('Can not find item in cart'))
     // if found then just ignore the request
