@@ -4,7 +4,7 @@ const Cart = require('./Cart').schema;
 const util = require('./util/extractUserDataFromSocial');
 // name, email, image, id, language
 const UserSchema = mongoose.Schema({
-    name: String,
+    user_name: String,
     email: String,
     password: String,
     avatar: String,
@@ -39,7 +39,7 @@ UserModel.createFromFB = async function (userInfo) {
     }
 
     return await this.create({
-        name: dataToCreate.user_name,
+        user_name: dataToCreate.user_name,
         email: dataToCreate.email,
         avatar: dataToCreate.avatar,
         client: dataToCreate

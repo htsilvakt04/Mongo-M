@@ -4,7 +4,12 @@ const cartController = require('../controllers/cart');
 const auth = require('./auth');
 
 router.get('/', auth, cartController.retrieveCarts);
-router.post('/item', auth, cartController.saveItemToCart);
+
+router.route('/item')
+    .post(auth, cartController.saveItemToCart)
+    .delete(auth, cartController.removeItemOutOfCart)
+
 router.put('/item/quantity', auth, cartController.updateItemQuantity);
+
 
 module.exports = router;

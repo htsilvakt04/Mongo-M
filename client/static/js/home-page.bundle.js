@@ -7422,7 +7422,7 @@ exports.createMemoryHistory = _createMemoryHistory3.default;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.requestChangeItemQuantity = exports.addItemToCart = exports.initItem = exports.initCart = exports.getCartData = exports.signIn = exports.getInitialData = undefined;
+exports.requestRemoveItemOfCart = exports.requestChangeItemQuantity = exports.addItemToCart = exports.initItem = exports.initCart = exports.getCartData = exports.signIn = exports.getInitialData = undefined;
 exports.addReview = addReview;
 
 var _DATA = __webpack_require__(596);
@@ -7440,6 +7440,8 @@ var _cart = __webpack_require__(88);
 var _reducers = __webpack_require__(25);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 var getInitialData = exports.getInitialData = function getInitialData() {
     return (0, _DATA.getItems)();
@@ -7544,28 +7546,85 @@ var addItemToCart = exports.addItemToCart = function addItemToCart(item_id) {
         });
     };
 };
-var requestChangeItemQuantity = exports.requestChangeItemQuantity = function requestChangeItemQuantity(item_id, quantity) {
-    var url = '/api/cart/item/quantity';
+var requestChangeItemQuantity = exports.requestChangeItemQuantity = function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(item_id, quantity) {
+        var url;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+            while (1) {
+                switch (_context.prev = _context.next) {
+                    case 0:
+                        url = '/api/cart/item/quantity';
+                        return _context.abrupt('return', fetch(url, {
+                            credentials: 'same-origin',
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json; charset=utf-8',
+                                'X-Requested-With': 'XMLHttpRequest'
+                            },
+                            body: JSON.stringify({ item_id: item_id, quantity: quantity })
+                        }).then(function (response) {
+                            if (!response.ok) {
+                                return {
+                                    error: 'no authentication',
+                                    data: [],
+                                    status: response.status
+                                };
+                            }
+                            return response.json();
+                        }));
 
-    return fetch(url, {
-        credentials: 'same-origin',
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-            'X-Requested-With': 'XMLHttpRequest'
-        },
-        body: JSON.stringify({ item_id: item_id, quantity: quantity })
-    }).then(function (response) {
-        if (!response.ok) {
-            return {
-                error: 'no authentication',
-                data: [],
-                status: response.status
-            };
-        }
-        return response.json();
-    });
-};
+                    case 2:
+                    case 'end':
+                        return _context.stop();
+                }
+            }
+        }, _callee, undefined);
+    }));
+
+    return function requestChangeItemQuantity(_x, _x2) {
+        return _ref2.apply(this, arguments);
+    };
+}();
+
+var requestRemoveItemOfCart = exports.requestRemoveItemOfCart = function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(item_id) {
+        var url;
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+            while (1) {
+                switch (_context2.prev = _context2.next) {
+                    case 0:
+                        url = '/api/cart/item';
+                        return _context2.abrupt('return', fetch(url, {
+                            credentials: 'same-origin',
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json; charset=utf-8',
+                                'X-Requested-With': 'XMLHttpRequest'
+                            },
+                            body: JSON.stringify({ item_id: item_id })
+                        }).then(function (response) {
+                            if (!response.ok) {
+                                return {
+                                    error: 'no authentication',
+                                    data: [],
+                                    status: response.status
+                                };
+                            }
+                            return response.json();
+                        }));
+
+                    case 2:
+                    case 'end':
+                        return _context2.stop();
+                }
+            }
+        }, _callee2, undefined);
+    }));
+
+    return function requestRemoveItemOfCart(_x3) {
+        return _ref3.apply(this, arguments);
+    };
+}();
 
 /***/ }),
 /* 63 */
@@ -8475,6 +8534,8 @@ var FETCH_CART_DATA_FAIL = exports.FETCH_CART_DATA_FAIL = 'FETCH_CART_DATA_FAIL'
 var ADD_ITEM_TO_CART_SUCCESS = exports.ADD_ITEM_TO_CART_SUCCESS = 'ADD_ITEM_TO_CART_SUCCESS';
 var CHANGE_ITEM_QUANTITY_SUCCESS = exports.CHANGE_ITEM_QUANTITY_SUCCESS = 'CHANGE_ITEM_QUANTITY_SUCCESS';
 var CHANGE_ITEM_QUANTITY_FAIL = exports.CHANGE_ITEM_QUANTITY_FAIL = 'CHANGE_ITEM_QUANTITY_FAIL';
+var REMOVE_ITEM_FAIL = exports.REMOVE_ITEM_FAIL = 'REMOVE_ITEM_FAIL';
+var REMOVE_ITEM_SUCCESS = exports.REMOVE_ITEM_SUCCESS = 'REMOVE_ITEM_SUCCESS';
 
 var CART = exports.CART = {
     success: function success(data) {
@@ -8511,6 +8572,18 @@ var CART = exports.CART = {
             type: CHANGE_ITEM_QUANTITY_FAIL,
             quantity: quantity,
             item_id: item_id
+        };
+    },
+    removeItemSuccess: function removeItemSuccess(item_id) {
+        return {
+            type: REMOVE_ITEM_SUCCESS,
+            item_id: item_id
+        };
+    },
+    removeItemFail: function removeItemFail(item) {
+        return {
+            type: REMOVE_ITEM_FAIL,
+            item: item
         };
     }
 };
@@ -8599,7 +8672,7 @@ function denormalizeImmutable(schema, input, unvisit) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.changeItemQuantity = exports.handleSignIn = exports.handleInitialData = exports.handleChangeCat = undefined;
+exports.removeItemOfCart = exports.changeItemQuantity = exports.handleSignIn = exports.handleInitialData = exports.handleChangeCat = undefined;
 
 var _category = __webpack_require__(649);
 
@@ -8644,6 +8717,20 @@ var changeItemQuantity = exports.changeItemQuantity = function changeItemQuantit
             if (data.error) return dispatch(_cart.CART.changeQuantityFail(item_id, quantity));
         }).catch(function (err) {
             return dispatch(_cart.CART.changeQuantityFail(item_id, quantity));
+        });
+    };
+};
+
+var removeItemOfCart = exports.removeItemOfCart = function removeItemOfCart(item) {
+    return function (dispatch) {
+        var item_id = item._id;
+
+
+        dispatch(_cart.CART.removeItemSuccess(item_id));
+        (0, _api.requestRemoveItemOfCart)(item_id).then(function (data) {
+            if (data.error) return dispatch(_cart.CART.removeItemFail(item));
+        }).catch(function (err) {
+            return dispatch(_cart.CART.removeItemFail(item));
         });
     };
 };
@@ -47527,6 +47614,8 @@ var _cart = __webpack_require__(88);
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var isFetching = function isFetching() {
@@ -47561,7 +47650,7 @@ var items = function items() {
     var item = function item() {
         var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         var action = arguments[1];
-
+        // mini reducer
         switch (action.type) {
             case _cart.ADD_ITEM_TO_CART_SUCCESS:
                 return _defineProperty({}, action.item._id, _extends({}, action.item));
@@ -47570,10 +47659,13 @@ var items = function items() {
                 return _defineProperty({}, state._id, _extends({}, state, {
                     quantity: action.quantity
                 }));
+            case _cart.REMOVE_ITEM_FAIL:
+                return _defineProperty({}, action.item._id, _extends({}, action.item));
             default:
                 return state;
         }
     };
+
     var byID = function byID() {
         var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         var action = arguments[1];
@@ -47589,6 +47681,13 @@ var items = function items() {
             case _cart.CHANGE_ITEM_QUANTITY_SUCCESS:
             case _cart.CHANGE_ITEM_QUANTITY_FAIL:
                 return _extends({}, state, item(state[action.item_id], action));
+            case _cart.REMOVE_ITEM_SUCCESS:
+                var unUsed = state[action.item_id],
+                    newState = _objectWithoutProperties(state, [action.item_id]);
+
+                return newState;
+            case _cart.REMOVE_ITEM_FAIL:
+                return _extends({}, state, item(state[action.item._id], action));
             default:
                 return state;
         }
@@ -47605,6 +47704,12 @@ var items = function items() {
             case _cart.FETCH_CART_DATA_SUCCESS:
                 return [].concat(_toConsumableArray(action.data.result)); // normalize here
             case _cart.ADD_ITEM_TO_CART_SUCCESS:
+                return [].concat(_toConsumableArray(state), [action.item._id]);
+            case _cart.REMOVE_ITEM_SUCCESS:
+                return state.filter(function (id) {
+                    return id !== action.item_id;
+                });
+            case _cart.REMOVE_ITEM_FAIL:
                 return [].concat(_toConsumableArray(state), [action.item._id]);
             default:
                 return state;
@@ -51177,10 +51282,10 @@ var ListItem = function (_React$Component) {
         }
 
         return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ListItem.__proto__ || Object.getPrototypeOf(ListItem)).call.apply(_ref, [this].concat(args))), _this), _this.handleChangeQuantity = function (item_id, quantity) {
-            console.log('see id: ', item_id);
-            console.log('see quantity:  ', quantity);
             _this.props.changeItemQuantity(item_id, quantity);
-        }, _this.handleRemoveItem = function (item_id) {}, _temp), _possibleConstructorReturn(_this, _ret);
+        }, _this.handleRemoveItem = function (item) {
+            _this.props.removeItemOfCart(item);
+        }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
     _createClass(ListItem, [{
@@ -51285,7 +51390,7 @@ var ListItem = function (_React$Component) {
     return ListItem;
 }(_react2.default.Component);
 
-exports.default = (0, _reactRedux.connect)(null, { changeItemQuantity: _actions.changeItemQuantity })(ListItem);
+exports.default = (0, _reactRedux.connect)(null, { changeItemQuantity: _actions.changeItemQuantity, removeItemOfCart: _actions.removeItemOfCart })(ListItem);
 
 /***/ }),
 /* 666 */
@@ -51318,9 +51423,9 @@ var _Item2 = _interopRequireDefault(_Item);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Item = function Item(props) {
-    var handleChangeQuantity = props.handleChangeQuantity,
-        handleRemoveItem = props.handleRemoveItem,
-        item = props.item;
+    var item = props.item,
+        handleChangeQuantity = props.handleChangeQuantity,
+        handleRemoveItem = props.handleRemoveItem;
 
 
     return _react2.default.createElement(
@@ -51349,7 +51454,7 @@ var Item = function Item(props) {
             null,
             _react2.default.createElement(
                 'form',
-                { action: '', method: 'post' },
+                { action: '' },
                 _react2.default.createElement(
                     'select',
                     { name: 'quantity', value: item.quantity, onChange: function onChange(event) {
@@ -51365,8 +51470,9 @@ var Item = function Item(props) {
                 ),
                 _react2.default.createElement(
                     'button',
-                    { onClick: function onClick() {
-                            return handleRemoveItem(item._id);
+                    { onClick: function onClick(event) {
+                            event.preventDefault();
+                            handleRemoveItem(item);
                         }, className: "btn " + _Item2.default["remove-btn"] },
                     'X'
                 )
@@ -51488,7 +51594,7 @@ var TableBody = function (_React$Component) {
             return _react2.default.createElement(
                 'tbody',
                 null,
-                this.props.children
+                this.props.children && this.props.children
             );
         }
     }]);

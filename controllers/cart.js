@@ -36,8 +36,21 @@ const updateItemQuantity = (req, res) => {
         .catch(() => res.status(500).send('Can not update quantity'));
 }
 
+const removeItemOutOfCart = (req, res) => {
+    const { item_id } = req.body;
+    const user_id = req.session.user.user_id;
+
+    Cart.findOneAndUpdate({user_id, "items._id": item_id}, {$pull: {items: {_id: item_id}}}, {new: true})
+        .then((doc) => {
+            console.log('---___---', doc);
+            return res.json({item_id})
+        })
+        .catch(() => res.status(500).send('Can not update quantity'));
+
+}
 module.exports = {
     retrieveCarts,
     saveItemToCart,
-    updateItemQuantity
+    updateItemQuantity,
+    removeItemOutOfCart
 };

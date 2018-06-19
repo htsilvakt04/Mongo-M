@@ -29,7 +29,7 @@ const facebook = (req, res) => {
 
         return new Promise( resolve => {
             req.session.regenerate( (err) =>  {
-                const data = {email: user.email, name: user.name || null, user_id: user._id || null}
+                const data = {email: user.email, name: user.user_name || null, user_id: user._id || null}
                 req.session.user = data
                 resolve (data)
             })

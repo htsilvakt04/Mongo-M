@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import style from './css/ListItem.css';
-import { changeItemQuantity } from '../../actions';
+import { changeItemQuantity, removeItemOfCart } from '../../actions';
 import Item from './Item';
 import TableHead from '../dump/TableHead';
 import TableBody from '../dump/TableBody';
@@ -9,12 +9,10 @@ import RowWithCol from '../dump/RowWithCol';
 
 class ListItem extends React.Component {
     handleChangeQuantity = (item_id, quantity) => {
-        console.log('see id: ', item_id);
-        console.log('see quantity:  ', quantity);
         this.props.changeItemQuantity(item_id, quantity);
     }
-    handleRemoveItem = (item_id) => {
-
+    handleRemoveItem = (item) => {
+        this.props.removeItemOfCart(item);
     }
     render () {
         const items = this.props.items;
@@ -51,4 +49,4 @@ class ListItem extends React.Component {
     }
 }
 
-export default connect(null, { changeItemQuantity })(ListItem);
+export default connect(null, { changeItemQuantity, removeItemOfCart })(ListItem);

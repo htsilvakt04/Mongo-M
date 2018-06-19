@@ -4,6 +4,8 @@ export const FETCH_CART_DATA_FAIL = 'FETCH_CART_DATA_FAIL';
 export const ADD_ITEM_TO_CART_SUCCESS = 'ADD_ITEM_TO_CART_SUCCESS';
 export const CHANGE_ITEM_QUANTITY_SUCCESS = 'CHANGE_ITEM_QUANTITY_SUCCESS';
 export const CHANGE_ITEM_QUANTITY_FAIL = 'CHANGE_ITEM_QUANTITY_FAIL';
+export const REMOVE_ITEM_FAIL = 'REMOVE_ITEM_FAIL';
+export const REMOVE_ITEM_SUCCESS = 'REMOVE_ITEM_SUCCESS';
 
 
 export const CART = {
@@ -40,6 +42,18 @@ export const CART = {
             type: CHANGE_ITEM_QUANTITY_FAIL,
             quantity,
             item_id
+        }
+    },
+    removeItemSuccess(item_id) {
+        return {
+            type: REMOVE_ITEM_SUCCESS,
+            item_id
+        }
+    },
+    removeItemFail(item) {
+        return {
+            type: REMOVE_ITEM_FAIL,
+            item
         }
     }
 }

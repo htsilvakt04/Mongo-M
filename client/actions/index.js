@@ -1,6 +1,6 @@
 import { CATEGORY } from './category';
 import { PAGE } from './page';
-import { getInitialData, requestChangeItemQuantity } from '../utils/api';
+import { getInitialData, requestChangeItemQuantity, requestRemoveItemOfCart } from '../utils/api';
 import { ITEM } from './items';
 import { USER } from '../actions/user';
 import { CART } from '../actions/cart';
@@ -34,5 +34,16 @@ export const changeItemQuantity = (item_id, quantity) => (dispatch) => {
             if (data.error) return dispatch(CART.changeQuantityFail(item_id, quantity));
         })
         .catch(err => dispatch(CART.changeQuantityFail(item_id, quantity)));
+}
+
+export const removeItemOfCart = (item) => (dispatch) => {
+    const { _id: item_id } = item;
+
+    dispatch(CART.removeItemSuccess(item_id));
+    requestRemoveItemOfCart(item_id)
+        .then(data => {
+            if (data.error) return dispatch(CART.removeItemFail(item))
+        })
+        .catch(err => dispatch(CART.removeItemFail(item)))
 }
 

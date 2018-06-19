@@ -95,7 +95,7 @@ export const addItemToCart = (item_id) => (dispatch, getState) => {
         return data;
     })
 }
-export const requestChangeItemQuantity = (item_id, quantity) => {
+export const requestChangeItemQuantity = async (item_id, quantity) => {
     const url = '/api/cart/item/quantity';
 
     return fetch(url, {
@@ -117,3 +117,27 @@ export const requestChangeItemQuantity = (item_id, quantity) => {
         return response.json();
     })
 }
+
+export const requestRemoveItemOfCart = async (item_id) => {
+    const url = '/api/cart/item';
+
+    return fetch(url, {
+        credentials: 'same-origin',
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify({item_id})
+    }).then(response => {
+        if (! response.ok) {
+            return {
+                error: 'no authentication',
+                data: [],
+                status: response.status
+            };
+        }
+        return response.json();
+    })
+}
+
