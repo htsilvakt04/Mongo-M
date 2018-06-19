@@ -1,6 +1,9 @@
 import { combineReducers } from 'redux';
 import { GET_INIT_ITEM } from '../actions/items';
-import { FETCH_CART_DATA_SUCCESS, FETCH_CART_DATA, FETCH_CART_DATA_FAIL, ADD_ITEM_TO_CART_SUCCESS } from '../actions/cart';
+import {
+    FETCH_CART_DATA_SUCCESS, FETCH_CART_DATA, FETCH_CART_DATA_FAIL,
+    ADD_ITEM_TO_CART_SUCCESS, CHANGE_ITEM_QUANTITY_SUCCESS, CHANGE_ITEM_QUANTITY_FAIL
+} from '../actions/cart';
 
 const isFetching = (state = false, action) => {
     switch (action.type) {
@@ -25,6 +28,26 @@ const error = (state = '', action) => {
 }
 
 const items = () => {
+    const item = (state = {}, action) => {
+        switch (action.type) {
+            case ADD_ITEM_TO_CART_SUCCESS:
+                return {
+                    [action.item._id]: {
+                        ...action.item
+                    }
+                }
+            case CHANGE_ITEM_QUANTITY_SUCCESS:
+            case CHANGE_ITEM_QUANTITY_FAIL:
+                return {
+                    [state._id]: {
+                        ...state,
+                        quantity: action.quantity
+                    }
+                };
+            default:
+                return state;
+        }
+    }
     const byID = (state = {}, action) => {
         switch (action.type) {
             case GET_INIT_ITEM:
@@ -33,11 +56,12 @@ const items = () => {
             case FETCH_CART_DATA_SUCCESS:
                 return {...action.data.entities.items}; // normalize here
             case ADD_ITEM_TO_CART_SUCCESS:
+                return {...state, ...item(undefined, action)}
+            case CHANGE_ITEM_QUANTITY_SUCCESS:
+            case CHANGE_ITEM_QUANTITY_FAIL:
                 return {
                     ...state,
-                    [action.item._id]: {
-                        ...action.item
-                    }
+                    ...item(state[action.item_id], action)
                 }
             default:
                 return state;

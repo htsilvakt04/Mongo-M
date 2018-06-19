@@ -2,9 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import style from './css/Item.css';
 const Item = (props) => {
-    const item = props.item;
-    const {handleChangeQuantity} = props;
-    const {handleRemoveItem} = props;
+    const {handleChangeQuantity, handleRemoveItem, item} = props;
+
     return (
         <tr>
             <td><Link to={"/item/" + item._id}>{item.title}</Link></td>

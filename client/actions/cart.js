@@ -31,13 +31,15 @@ export const CART = {
     changeQuantitySuccess(item_id, quantity) {
         return {
             type: CHANGE_ITEM_QUANTITY_SUCCESS,
-            quantity
+            quantity,
+            item_id
         }
     },
     changeQuantityFail(item_id, quantity) {
         return {
             type: CHANGE_ITEM_QUANTITY_FAIL,
-            quantity
+            quantity,
+            item_id
         }
     }
 }

@@ -8502,13 +8502,15 @@ var CART = exports.CART = {
     changeQuantitySuccess: function changeQuantitySuccess(item_id, quantity) {
         return {
             type: CHANGE_ITEM_QUANTITY_SUCCESS,
-            quantity: quantity
+            quantity: quantity,
+            item_id: item_id
         };
     },
     changeQuantityFail: function changeQuantityFail(item_id, quantity) {
         return {
             type: CHANGE_ITEM_QUANTITY_FAIL,
-            quantity: quantity
+            quantity: quantity,
+            item_id: item_id
         };
     }
 };
@@ -33548,7 +33550,7 @@ var _reducers = __webpack_require__(25);
 
 var _reducers2 = _interopRequireDefault(_reducers);
 
-var _middlewares = __webpack_require__(672);
+var _middlewares = __webpack_require__(673);
 
 var _middlewares2 = _interopRequireDefault(_middlewares);
 
@@ -47556,6 +47558,22 @@ var error = function error() {
 };
 
 var items = function items() {
+    var item = function item() {
+        var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        var action = arguments[1];
+
+        switch (action.type) {
+            case _cart.ADD_ITEM_TO_CART_SUCCESS:
+                return _defineProperty({}, action.item._id, _extends({}, action.item));
+            case _cart.CHANGE_ITEM_QUANTITY_SUCCESS:
+            case _cart.CHANGE_ITEM_QUANTITY_FAIL:
+                return _defineProperty({}, state._id, _extends({}, state, {
+                    quantity: action.quantity
+                }));
+            default:
+                return state;
+        }
+    };
     var byID = function byID() {
         var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         var action = arguments[1];
@@ -47567,7 +47585,10 @@ var items = function items() {
             case _cart.FETCH_CART_DATA_SUCCESS:
                 return _extends({}, action.data.entities.items); // normalize here
             case _cart.ADD_ITEM_TO_CART_SUCCESS:
-                return _extends({}, state, _defineProperty({}, action.item._id, _extends({}, action.item)));
+                return _extends({}, state, item(undefined, action));
+            case _cart.CHANGE_ITEM_QUANTITY_SUCCESS:
+            case _cart.CHANGE_ITEM_QUANTITY_FAIL:
+                return _extends({}, state, item(state[action.item_id], action));
             default:
                 return state;
         }
@@ -50986,7 +51007,7 @@ var _ListItem = __webpack_require__(665);
 
 var _ListItem2 = _interopRequireDefault(_ListItem);
 
-var _index = __webpack_require__(671);
+var _index = __webpack_require__(672);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -51121,15 +51142,15 @@ var _Item = __webpack_require__(667);
 
 var _Item2 = _interopRequireDefault(_Item);
 
-var _TableHead = __webpack_require__(668);
+var _TableHead = __webpack_require__(669);
 
 var _TableHead2 = _interopRequireDefault(_TableHead);
 
-var _TableBody = __webpack_require__(669);
+var _TableBody = __webpack_require__(670);
 
 var _TableBody2 = _interopRequireDefault(_TableBody);
 
-var _RowWithCol = __webpack_require__(670);
+var _RowWithCol = __webpack_require__(671);
 
 var _RowWithCol2 = _interopRequireDefault(_RowWithCol);
 
@@ -51288,16 +51309,17 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(16);
 
-var _Item = __webpack_require__(683);
+var _Item = __webpack_require__(668);
 
 var _Item2 = _interopRequireDefault(_Item);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Item = function Item(props) {
-    var item = props.item;
-    var handleChangeQuantity = props.handleChangeQuantity;
-    var handleRemoveItem = props.handleRemoveItem;
+    var handleChangeQuantity = props.handleChangeQuantity,
+        handleRemoveItem = props.handleRemoveItem,
+        item = props.item;
+
 
     return _react2.default.createElement(
         'tr',
@@ -51383,6 +51405,13 @@ exports.default = Item;
 
 /***/ }),
 /* 668 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+module.exports = {"remove-btn":"Item__remove-btn___1rFaO"};
+
+/***/ }),
+/* 669 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51436,7 +51465,7 @@ var TableHead = function (_React$Component) {
 exports.default = TableHead;
 
 /***/ }),
-/* 669 */
+/* 670 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51486,7 +51515,7 @@ var TableBody = function (_React$Component) {
 exports.default = TableBody;
 
 /***/ }),
-/* 670 */
+/* 671 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51532,14 +51561,14 @@ RowWithCol.defaultProps = {
 exports.default = RowWithCol;
 
 /***/ }),
-/* 671 */
+/* 672 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 module.exports = {"spinner":"index__spinner___2ZtP_","cube1":"index__cube1___2-hZX","cube2":"index__cube2___2nje5","sk-cubemove":"index__sk-cubemove___2esGb"};
 
 /***/ }),
-/* 672 */
+/* 673 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51551,11 +51580,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(60);
 
-var _logger = __webpack_require__(673);
+var _logger = __webpack_require__(674);
 
 var _logger2 = _interopRequireDefault(_logger);
 
-var _reduxThunk = __webpack_require__(674);
+var _reduxThunk = __webpack_require__(675);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
@@ -51566,7 +51595,7 @@ var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || _redux.com
 exports.default = composeEnhancers((0, _redux.applyMiddleware)(_reduxThunk2.default, _logger2.default));
 
 /***/ }),
-/* 673 */
+/* 674 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51591,7 +51620,7 @@ var logger = function logger(store) {
 exports.default = logger;
 
 /***/ }),
-/* 674 */
+/* 675 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51620,21 +51649,6 @@ var thunk = createThunkMiddleware();
 thunk.withExtraArgument = createThunkMiddleware;
 
 exports.default = thunk;
-
-/***/ }),
-/* 675 */,
-/* 676 */,
-/* 677 */,
-/* 678 */,
-/* 679 */,
-/* 680 */,
-/* 681 */,
-/* 682 */,
-/* 683 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-module.exports = {"remove-btn":"Item__remove-btn___1rFaO"};
 
 /***/ })
 /******/ ]);
