@@ -9,6 +9,8 @@ import RowWithCol from '../dump/RowWithCol';
 
 class ListItem extends React.Component {
     handleChangeQuantity = (item_id, quantity) => {
+        console.log('see id: ', item_id);
+        console.log('see quantity:  ', quantity);
         this.props.changeItemQuantity(item_id, quantity);
     }
     handleRemoveItem = (item_id) => {

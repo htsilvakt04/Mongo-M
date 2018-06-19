@@ -27,8 +27,17 @@ const saveItemToCart = (req, res) => {
     }).catch(err => res.status(500).send('Can not find item in cart'))
     // if found then just ignore the request
 }
+const updateItemQuantity = (req, res) => {
+    const { item_id, quantity } = req.body;
+    const user_id = req.session.user.user_id;
+
+    Cart.findOneAndUpdate({user_id, "items._id": item_id}, {$set: {"items.$.quantity": quantity}}, {new: true})
+        .then(() => res.json({item_id, quantity}))
+        .catch(() => res.status(500).send('Can not update quantity'));
+}
 
 module.exports = {
     retrieveCarts,
-    saveItemToCart
+    saveItemToCart,
+    updateItemQuantity
 };

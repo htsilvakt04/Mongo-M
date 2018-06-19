@@ -96,7 +96,7 @@ export const addItemToCart = (item_id) => (dispatch, getState) => {
     })
 }
 export const requestChangeItemQuantity = (item_id, quantity) => {
-    const url = '/api/somewhere'; //TODO: fill in here
+    const url = '/api/cart/item/quantity';
 
     return fetch(url, {
         credentials: 'same-origin',

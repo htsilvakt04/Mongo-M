@@ -7,15 +7,15 @@ const cartController = require('../controllers/cart');
 const loginRoutes = require('./login');
 const logoutRoutes = require('./logout');
 const registerRoutes = require('./register');
+const cartRoutes = require('./cart');
 
 // auth routes
 router.use('/login', loginRoutes);
 router.use('/register', registerRoutes);
 router.use('/logout', logoutRoutes);
-
+router.use('/cart', cartRoutes);
 // data routes
-router.get('/cart', auth, cartController.retrieveCarts);
-router.post('/cart/item', auth, cartController.saveItemToCart);
+
 
 
 

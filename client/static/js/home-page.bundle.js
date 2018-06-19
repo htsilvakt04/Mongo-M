@@ -7545,7 +7545,7 @@ var addItemToCart = exports.addItemToCart = function addItemToCart(item_id) {
     };
 };
 var requestChangeItemQuantity = exports.requestChangeItemQuantity = function requestChangeItemQuantity(item_id, quantity) {
-    var url = '/api/somewhere'; //TODO: fill in here
+    var url = '/api/cart/item/quantity';
 
     return fetch(url, {
         credentials: 'same-origin',
@@ -51177,6 +51177,8 @@ var ListItem = function (_React$Component) {
         }
 
         return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ListItem.__proto__ || Object.getPrototypeOf(ListItem)).call.apply(_ref, [this].concat(args))), _this), _this.handleChangeQuantity = function (item_id, quantity) {
+            console.log('see id: ', item_id);
+            console.log('see quantity:  ', quantity);
             _this.props.changeItemQuantity(item_id, quantity);
         }, _this.handleRemoveItem = function (item_id) {}, _temp), _possibleConstructorReturn(_this, _ret);
     }
@@ -51350,34 +51352,16 @@ var Item = function Item(props) {
                 { action: '', method: 'post' },
                 _react2.default.createElement(
                     'select',
-                    { name: 'quantity', onChange: function onChange(event) {
-                            return handleChangeQuantity(item, event.target.value);
+                    { name: 'quantity', value: item.quantity, onChange: function onChange(event) {
+                            return handleChangeQuantity(item._id, event.target.value);
                         } },
-                    _react2.default.createElement(
-                        'option',
-                        { value: '1' },
-                        '1'
-                    ),
-                    _react2.default.createElement(
-                        'option',
-                        { value: '2' },
-                        '2'
-                    ),
-                    _react2.default.createElement(
-                        'option',
-                        { value: '3' },
-                        '3'
-                    ),
-                    _react2.default.createElement(
-                        'option',
-                        { value: '4' },
-                        '4'
-                    ),
-                    _react2.default.createElement(
-                        'option',
-                        { value: '5' },
-                        '5'
-                    )
+                    [1, 2, 3, 4, 5].map(function (value) {
+                        return _react2.default.createElement(
+                            'option',
+                            { key: value, value: value },
+                            value
+                        );
+                    })
                 ),
                 _react2.default.createElement(
                     'button',
