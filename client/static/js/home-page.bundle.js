@@ -49681,6 +49681,10 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _LoginForm = __webpack_require__(685);
+
+var _LoginForm2 = _interopRequireDefault(_LoginForm);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -49722,43 +49726,13 @@ var LoginForm = function (_React$Component) {
         value: function render() {
             return _react2.default.createElement(
                 'div',
-                null,
-                _react2.default.createElement(
-                    'form',
-                    { action: '/login', method: 'post', onSubmit: this.handleSubmit },
-                    _react2.default.createElement(
-                        'div',
-                        null,
-                        _react2.default.createElement(
-                            'label',
-                            null,
-                            'Email:'
-                        ),
-                        _react2.default.createElement('input', { type: 'text', name: 'email' }),
-                        _react2.default.createElement('br', null)
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        null,
-                        _react2.default.createElement(
-                            'label',
-                            null,
-                            'Password:'
-                        ),
-                        _react2.default.createElement('input', { type: 'password', name: 'password' })
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        null,
-                        _react2.default.createElement('input', { type: 'submit', value: 'Submit' })
-                    )
-                ),
+                { className: 'container' },
                 _react2.default.createElement(
                     'div',
-                    { className: 'social-login' },
+                    { className: 'row' },
                     _react2.default.createElement(
                         'button',
-                        { id: 'facebook-login', onClick: this.props.handleLoginSocial },
+                        { id: 'facebook-login', className: 'col-md-6' },
                         'Login with Facebook'
                     )
                 )
@@ -50727,6 +50701,7 @@ var CommentForm = function (_React$Component) {
             stars: 5
         }, _this.handleSubmit = function (event) {
             event.preventDefault();
+            return; // coming soon
             var item = _this.props.item;
             _this.setState(function () {
                 return { review: '', name: '' };
@@ -50734,6 +50709,8 @@ var CommentForm = function (_React$Component) {
 
             _this.props.dispatch((0, _items.handleAddReview)(_extends({}, _this.state, { id: item._id })));
         }, _this.handleChange = function (event) {
+            event.preventDefault();
+            return; // coming soon
             var val = event.target.value;
             switch (event.target.name) {
                 case 'review':
@@ -50827,7 +50804,7 @@ var CommentForm = function (_React$Component) {
                     _react2.default.createElement(
                         'button',
                         { disabled: this.checkDisable(), type: 'submit', className: 'btn btn-primary' },
-                        'Submit Review'
+                        'Coming soon!!!'
                     )
                 )
             );
@@ -51739,6 +51716,21 @@ var thunk = createThunkMiddleware();
 thunk.withExtraArgument = createThunkMiddleware;
 
 exports.default = thunk;
+
+/***/ }),
+/* 676 */,
+/* 677 */,
+/* 678 */,
+/* 679 */,
+/* 680 */,
+/* 681 */,
+/* 682 */,
+/* 683 */,
+/* 684 */,
+/* 685 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

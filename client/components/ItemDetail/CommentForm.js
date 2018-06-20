@@ -9,6 +9,7 @@ class CommentForm extends React.Component {
     }
     handleSubmit = (event) => {
         event.preventDefault();
+        return; // coming soon
         let item = this.props.item;
         this.setState(() => ({review: '', name: ''}));
 
@@ -18,6 +19,8 @@ class CommentForm extends React.Component {
     }
 
     handleChange = (event) => {
+        event.preventDefault();
+        return; // coming soon
         let val = event.target.value;
         switch (event.target.name) {
             case 'review':
@@ -65,7 +68,7 @@ class CommentForm extends React.Component {
                             <input type="radio" name="stars" id="stars" value="5" defaultChecked /> 5 star
                         </label>
                     </div>
-                    <button disabled={this.checkDisable()} type="submit" className="btn btn-primary">Submit Review</button>
+                    <button disabled={this.checkDisable()} type="submit" className="btn btn-primary">Coming soon!!!</button>
                 </form>
             </div>
         )
