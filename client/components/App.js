@@ -37,7 +37,7 @@ class App extends React.Component {
                             <CSSTransition key={location.key} classNames="fade" timeout={200}>
                                 <Switch location={location}>
                                     <ScrollToTopRoute path="/login" exact component={LoginPage}/>
-                                    <Route path="/cart" component={Cart}/>
+                                    <ScrollToTopRoute path="/cart" component={Cart}/>
                                     <ScrollToTopRoute path="/item/:id" component={ItemDetail}/>
                                     <ScrollToTopRoute path="/" exact component={HomePage}/>
                                     <ScrollToTopRoute path="/:cat?" component={HomePage}/>

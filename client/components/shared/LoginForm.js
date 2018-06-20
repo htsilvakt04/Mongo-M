@@ -19,7 +19,7 @@ class LoginForm extends React.Component {
         return (
             <div className="container">
                 <div className="row margin-login">
-                    <button disabled={document.readyState === 'complete'} id="facebook-login"
+                    <button id="facebook-login"
                             onClick={this.props.handleLoginSocial} className={ style.loginBtn + ' ' + style["loginBtn--facebook"] + " col-md-push-3 col-md-6"}>
                         Login with Facebook
                     </button>

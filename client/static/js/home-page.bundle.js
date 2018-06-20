@@ -40798,7 +40798,7 @@ var App = function (_React$Component) {
                                         _reactRouterDom.Switch,
                                         { location: location },
                                         _react2.default.createElement(_ScrollToTopRoute2.default, { path: '/login', exact: true, component: _login2.default }),
-                                        _react2.default.createElement(_reactRouterDom.Route, { path: '/cart', component: _cart2.default }),
+                                        _react2.default.createElement(_ScrollToTopRoute2.default, { path: '/cart', component: _cart2.default }),
                                         _react2.default.createElement(_ScrollToTopRoute2.default, { path: '/item/:id', component: _ItemDetail2.default }),
                                         _react2.default.createElement(_ScrollToTopRoute2.default, { path: '/', exact: true, component: _HomePage2.default }),
                                         _react2.default.createElement(_ScrollToTopRoute2.default, { path: '/:cat?', component: _HomePage2.default }),
@@ -49726,7 +49726,7 @@ var LoginForm = function (_React$Component) {
                     { className: 'row margin-login' },
                     _react2.default.createElement(
                         'button',
-                        { disabled: document.readyState === 'complete', id: 'facebook-login',
+                        { id: 'facebook-login',
                             onClick: this.props.handleLoginSocial, className: _LoginForm2.default.loginBtn + ' ' + _LoginForm2.default["loginBtn--facebook"] + " col-md-push-3 col-md-6" },
                         'Login with Facebook'
                     )
