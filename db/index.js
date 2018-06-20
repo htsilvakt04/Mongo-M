@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 // mongoose.set('debug', true); //***turn this on when you need to debug query in mongoose
 const assert = require('assert');
 // Connection URL
+// const url = 'mongodb://localhost:27017/mongo-session';
 let url = 'mongodb://' + process.env.DB_USER + ':' + process.env.DB_PASS + '@ds233769.mlab.com:33769/heroku_2vq24zh5';
 mongoose.connect(url);
 const db = mongoose.connection;
