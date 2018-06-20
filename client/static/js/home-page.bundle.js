@@ -1898,7 +1898,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             try {
                 oldLocale = globalLocale._abbr;
                 var aliasedRequire = require;
-                __webpack_require__(658)("./" + name);
+                __webpack_require__(659)("./" + name);
                 getSetGlobalLocale(oldLocale);
             } catch (e) {}
         }
@@ -8674,7 +8674,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.removeItemOfCart = exports.changeItemQuantity = exports.handleSignIn = exports.handleInitialData = exports.handleChangeCat = undefined;
 
-var _category = __webpack_require__(649);
+var _category = __webpack_require__(650);
 
 var _page = __webpack_require__(89);
 
@@ -8682,7 +8682,7 @@ var _api = __webpack_require__(62);
 
 var _items = __webpack_require__(67);
 
-var _user = __webpack_require__(650);
+var _user = __webpack_require__(651);
 
 var _cart = __webpack_require__(88);
 
@@ -33637,7 +33637,7 @@ var _reducers = __webpack_require__(25);
 
 var _reducers2 = _interopRequireDefault(_reducers);
 
-var _middlewares = __webpack_require__(673);
+var _middlewares = __webpack_require__(674);
 
 var _middlewares2 = _interopRequireDefault(_middlewares);
 
@@ -40723,25 +40723,25 @@ var _login = __webpack_require__(634);
 
 var _login2 = _interopRequireDefault(_login);
 
-var _ItemDetail = __webpack_require__(652);
+var _ItemDetail = __webpack_require__(653);
 
 var _ItemDetail2 = _interopRequireDefault(_ItemDetail);
 
 var _actions = __webpack_require__(91);
 
-var _ScrollToTopRoute = __webpack_require__(661);
+var _ScrollToTopRoute = __webpack_require__(662);
 
 var _ScrollToTopRoute2 = _interopRequireDefault(_ScrollToTopRoute);
 
-var _CheckSessionExprired = __webpack_require__(662);
+var _CheckSessionExprired = __webpack_require__(663);
 
 var _CheckSessionExprired2 = _interopRequireDefault(_CheckSessionExprired);
 
-var _CheckAuth = __webpack_require__(663);
+var _CheckAuth = __webpack_require__(664);
 
 var _CheckAuth2 = _interopRequireDefault(_CheckAuth);
 
-var _cart = __webpack_require__(664);
+var _cart = __webpack_require__(665);
 
 var _cart2 = _interopRequireDefault(_cart);
 
@@ -40797,7 +40797,7 @@ var App = function (_React$Component) {
                                     _react2.default.createElement(
                                         _reactRouterDom.Switch,
                                         { location: location },
-                                        _react2.default.createElement(_reactRouterDom.Route, { path: '/login', exact: true, component: _login2.default }),
+                                        _react2.default.createElement(_ScrollToTopRoute2.default, { path: '/login', exact: true, component: _login2.default }),
                                         _react2.default.createElement(_reactRouterDom.Route, { path: '/cart', component: _cart2.default }),
                                         _react2.default.createElement(_ScrollToTopRoute2.default, { path: '/item/:id', component: _ItemDetail2.default }),
                                         _react2.default.createElement(_ScrollToTopRoute2.default, { path: '/', exact: true, component: _HomePage2.default }),
@@ -48589,7 +48589,7 @@ var _LoginForm2 = _interopRequireDefault(_LoginForm);
 
 var _api = __webpack_require__(62);
 
-var _config = __webpack_require__(648);
+var _config = __webpack_require__(649);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -48597,7 +48597,7 @@ var _actions = __webpack_require__(91);
 
 var _reducers = __webpack_require__(25);
 
-var _util = __webpack_require__(651);
+var _util = __webpack_require__(652);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -48687,13 +48687,7 @@ var LoginPage = function (_React$Component) {
                 'div',
                 null,
                 _react2.default.createElement(_reactBootstrapSweetalert2.default, _extends({}, this.state.modal, { onConfirm: this.toggleModal })),
-                _react2.default.createElement(_LoginForm2.default, { handleLoginSocial: this.handleLoginSocial, handleSubmit: this.handleSubmit }),
-                _react2.default.createElement(
-                    'h2',
-                    null,
-                    'Welcome: ',
-                    this.props.email
-                )
+                _react2.default.createElement(_LoginForm2.default, { handleLoginSocial: this.handleLoginSocial, handleSubmit: this.handleSubmit })
             );
         }
     }]);
@@ -49681,7 +49675,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _LoginForm = __webpack_require__(685);
+var _LoginForm = __webpack_require__(648);
 
 var _LoginForm2 = _interopRequireDefault(_LoginForm);
 
@@ -49729,10 +49723,11 @@ var LoginForm = function (_React$Component) {
                 { className: 'container' },
                 _react2.default.createElement(
                     'div',
-                    { className: 'row' },
+                    { className: 'row margin-login' },
                     _react2.default.createElement(
                         'button',
-                        { id: 'facebook-login', className: 'col-md-6' },
+                        { disabled: document.readyState === 'complete', id: 'facebook-login',
+                            onClick: this.props.handleLoginSocial, className: _LoginForm2.default.loginBtn + ' ' + _LoginForm2.default["loginBtn--facebook"] + " col-md-push-3 col-md-6" },
                         'Login with Facebook'
                     )
                 )
@@ -49747,6 +49742,13 @@ exports.default = LoginForm;
 
 /***/ }),
 /* 648 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+module.exports = {"loginBtn":"LoginForm__loginBtn___3exlG","loginBtn--facebook":"LoginForm__loginBtn--facebook___2bvg1"};
+
+/***/ }),
+/* 649 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49767,7 +49769,7 @@ var App = exports.App = {
 exports.default = Error;
 
 /***/ }),
-/* 649 */
+/* 650 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49795,7 +49797,7 @@ var CATEGORY = exports.CATEGORY = {
 };
 
 /***/ }),
-/* 650 */
+/* 651 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49835,7 +49837,7 @@ var USER = exports.USER = {
 };
 
 /***/ }),
-/* 651 */
+/* 652 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49861,7 +49863,7 @@ var constructScript = exports.constructScript = function constructScript() {
 };
 
 /***/ }),
-/* 652 */
+/* 653 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49883,27 +49885,27 @@ var _reactRouterDom = __webpack_require__(16);
 
 var _reducers = __webpack_require__(25);
 
-var _Breadcrum = __webpack_require__(653);
+var _Breadcrum = __webpack_require__(654);
 
 var _Breadcrum2 = _interopRequireDefault(_Breadcrum);
 
-var _Heading = __webpack_require__(654);
+var _Heading = __webpack_require__(655);
 
 var _Heading2 = _interopRequireDefault(_Heading);
 
-var _Item = __webpack_require__(655);
+var _Item = __webpack_require__(656);
 
 var _Item2 = _interopRequireDefault(_Item);
 
-var _LatestReview = __webpack_require__(657);
+var _LatestReview = __webpack_require__(658);
 
 var _LatestReview2 = _interopRequireDefault(_LatestReview);
 
-var _CommentForm = __webpack_require__(659);
+var _CommentForm = __webpack_require__(660);
 
 var _CommentForm2 = _interopRequireDefault(_CommentForm);
 
-var _RelatedItems = __webpack_require__(660);
+var _RelatedItems = __webpack_require__(661);
 
 var _RelatedItems2 = _interopRequireDefault(_RelatedItems);
 
@@ -49955,7 +49957,7 @@ function mapStateToProps(state, currentProps) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps)(ItemDetail));
 
 /***/ }),
-/* 653 */
+/* 654 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50027,7 +50029,7 @@ var Breadcrum = function Breadcrum(_ref) {
 exports.default = (0, _reactRedux.connect)(null, { handleChangeCat: _actions.handleChangeCat })(Breadcrum);
 
 /***/ }),
-/* 654 */
+/* 655 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50092,7 +50094,7 @@ var Heading = function (_React$Component) {
 exports.default = Heading;
 
 /***/ }),
-/* 655 */
+/* 656 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50112,7 +50114,7 @@ var _reactRedux = __webpack_require__(14);
 
 var _reducers = __webpack_require__(25);
 
-var _util = __webpack_require__(656);
+var _util = __webpack_require__(657);
 
 var _api = __webpack_require__(62);
 
@@ -50241,7 +50243,7 @@ function mapDispatchToProps(dispatch, ownProps) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Item);
 
 /***/ }),
-/* 656 */
+/* 657 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50270,7 +50272,7 @@ var calculateRating = exports.calculateRating = function calculateRating(item) {
 };
 
 /***/ }),
-/* 657 */
+/* 658 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50383,7 +50385,7 @@ var LatestReview = function (_React$Component) {
 exports.default = LatestReview;
 
 /***/ }),
-/* 658 */
+/* 659 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -50648,10 +50650,10 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 658;
+webpackContext.id = 659;
 
 /***/ }),
-/* 659 */
+/* 660 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50817,7 +50819,7 @@ var CommentForm = function (_React$Component) {
 exports.default = (0, _reactRedux.connect)()(CommentForm);
 
 /***/ }),
-/* 660 */
+/* 661 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50908,7 +50910,7 @@ function mapStateToProps(state, currentProps) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(RelatedItems);
 
 /***/ }),
-/* 661 */
+/* 662 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50973,7 +50975,7 @@ var ScrollToTopRoute = function (_Component) {
 exports.default = (0, _reactRouterDom.withRouter)(ScrollToTopRoute);
 
 /***/ }),
-/* 662 */
+/* 663 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51019,7 +51021,7 @@ function mapStateToProps(state) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps)(CheckSessionExprired));
 
 /***/ }),
-/* 663 */
+/* 664 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51063,7 +51065,7 @@ function mapStateToProps(state) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps)(CheckAuth));
 
 /***/ }),
-/* 664 */
+/* 665 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51085,11 +51087,11 @@ var _reactRedux = __webpack_require__(14);
 
 var _api = __webpack_require__(62);
 
-var _ListItem = __webpack_require__(665);
+var _ListItem = __webpack_require__(666);
 
 var _ListItem2 = _interopRequireDefault(_ListItem);
 
-var _index = __webpack_require__(672);
+var _index = __webpack_require__(673);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -51196,7 +51198,7 @@ function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, { getCartData: _api.getCartData })(Cart);
 
 /***/ }),
-/* 665 */
+/* 666 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51214,25 +51216,25 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(14);
 
-var _ListItem = __webpack_require__(666);
+var _ListItem = __webpack_require__(667);
 
 var _ListItem2 = _interopRequireDefault(_ListItem);
 
 var _actions = __webpack_require__(91);
 
-var _Item = __webpack_require__(667);
+var _Item = __webpack_require__(668);
 
 var _Item2 = _interopRequireDefault(_Item);
 
-var _TableHead = __webpack_require__(669);
+var _TableHead = __webpack_require__(670);
 
 var _TableHead2 = _interopRequireDefault(_TableHead);
 
-var _TableBody = __webpack_require__(670);
+var _TableBody = __webpack_require__(671);
 
 var _TableBody2 = _interopRequireDefault(_TableBody);
 
-var _RowWithCol = __webpack_require__(671);
+var _RowWithCol = __webpack_require__(672);
 
 var _RowWithCol2 = _interopRequireDefault(_RowWithCol);
 
@@ -51370,14 +51372,14 @@ var ListItem = function (_React$Component) {
 exports.default = (0, _reactRedux.connect)(null, { changeItemQuantity: _actions.changeItemQuantity, removeItemOfCart: _actions.removeItemOfCart })(ListItem);
 
 /***/ }),
-/* 666 */
+/* 667 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 module.exports = {"checkout":"ListItem__checkout___3jbk_"};
 
 /***/ }),
-/* 667 */
+/* 668 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51393,7 +51395,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(16);
 
-var _Item = __webpack_require__(668);
+var _Item = __webpack_require__(669);
 
 var _Item2 = _interopRequireDefault(_Item);
 
@@ -51471,14 +51473,14 @@ var Item = function Item(props) {
 exports.default = Item;
 
 /***/ }),
-/* 668 */
+/* 669 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 module.exports = {"remove-btn":"Item__remove-btn___1rFaO"};
 
 /***/ }),
-/* 669 */
+/* 670 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51532,7 +51534,7 @@ var TableHead = function (_React$Component) {
 exports.default = TableHead;
 
 /***/ }),
-/* 670 */
+/* 671 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51582,7 +51584,7 @@ var TableBody = function (_React$Component) {
 exports.default = TableBody;
 
 /***/ }),
-/* 671 */
+/* 672 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51628,14 +51630,14 @@ RowWithCol.defaultProps = {
 exports.default = RowWithCol;
 
 /***/ }),
-/* 672 */
+/* 673 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 module.exports = {"spinner":"index__spinner___2ZtP_","cube1":"index__cube1___2-hZX","cube2":"index__cube2___2nje5","sk-cubemove":"index__sk-cubemove___2esGb"};
 
 /***/ }),
-/* 673 */
+/* 674 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51647,11 +51649,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(60);
 
-var _logger = __webpack_require__(674);
+var _logger = __webpack_require__(675);
 
 var _logger2 = _interopRequireDefault(_logger);
 
-var _reduxThunk = __webpack_require__(675);
+var _reduxThunk = __webpack_require__(676);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
@@ -51662,7 +51664,7 @@ var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || _redux.com
 exports.default = composeEnhancers((0, _redux.applyMiddleware)(_reduxThunk2.default, _logger2.default));
 
 /***/ }),
-/* 674 */
+/* 675 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51687,7 +51689,7 @@ var logger = function logger(store) {
 exports.default = logger;
 
 /***/ }),
-/* 675 */
+/* 676 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51716,21 +51718,6 @@ var thunk = createThunkMiddleware();
 thunk.withExtraArgument = createThunkMiddleware;
 
 exports.default = thunk;
-
-/***/ }),
-/* 676 */,
-/* 677 */,
-/* 678 */,
-/* 679 */,
-/* 680 */,
-/* 681 */,
-/* 682 */,
-/* 683 */,
-/* 684 */,
-/* 685 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

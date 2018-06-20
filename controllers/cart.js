@@ -41,10 +41,7 @@ const removeItemOutOfCart = (req, res) => {
     const user_id = req.session.user.user_id;
 
     Cart.findOneAndUpdate({user_id, "items._id": item_id}, {$pull: {items: {_id: item_id}}}, {new: true})
-        .then((doc) => {
-            console.log('---___---', doc);
-            return res.json({item_id})
-        })
+        .then((doc) => res.json({item_id}))
         .catch(() => res.status(500).send('Can not update quantity'));
 
 }

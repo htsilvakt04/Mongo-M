@@ -72,7 +72,6 @@ class LoginPage extends React.Component {
             <div>
                 <SweetAlert {...this.state.modal} onConfirm={this.toggleModal} />
                 <LoginForm handleLoginSocial={this.handleLoginSocial} handleSubmit={this.handleSubmit}/>
-                <h2>Welcome: {this.props.email}</h2>
             </div>
         )
     }
