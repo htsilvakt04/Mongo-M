@@ -5,7 +5,32 @@ import {
     ADD_ITEM_TO_CART_SUCCESS, CHANGE_ITEM_QUANTITY_SUCCESS, CHANGE_ITEM_QUANTITY_FAIL,
     REMOVE_ITEM_FAIL, REMOVE_ITEM_SUCCESS
 } from '../actions/cart';
-
+const item = (state = {}, action) => { // mini reducer
+    switch (action.type) {
+        case ADD_ITEM_TO_CART_SUCCESS:
+            return {
+                [action.item._id]: {
+                    ...action.item
+                }
+            }
+        case CHANGE_ITEM_QUANTITY_SUCCESS:
+        case CHANGE_ITEM_QUANTITY_FAIL:
+            return {
+                [state._id]: {
+                    ...state,
+                    quantity: action.quantity
+                }
+            }
+        case REMOVE_ITEM_FAIL:
+            return {
+                [action.item._id]: {
+                    ...action.item
+                }
+            }
+        default:
+            return state;
+    }
+}
 const isFetching = (state = false, action) => {
     switch (action.type) {
         case FETCH_CART_DATA:
@@ -29,33 +54,6 @@ const error = (state = '', action) => {
 }
 
 const items = () => {
-    const item = (state = {}, action) => { // mini reducer
-        switch (action.type) {
-            case ADD_ITEM_TO_CART_SUCCESS:
-                return {
-                    [action.item._id]: {
-                        ...action.item
-                    }
-                }
-            case CHANGE_ITEM_QUANTITY_SUCCESS:
-            case CHANGE_ITEM_QUANTITY_FAIL:
-                return {
-                    [state._id]: {
-                        ...state,
-                        quantity: action.quantity
-                    }
-                }
-            case REMOVE_ITEM_FAIL:
-                return {
-                    [action.item._id]: {
-                        ...action.item
-                    }
-                }
-            default:
-                return state;
-        }
-    }
-
     const byID = (state = {}, action) => {
         switch (action.type) {
             case GET_INIT_ITEM:
