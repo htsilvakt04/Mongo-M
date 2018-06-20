@@ -8,6 +8,10 @@ async function main () {
         if (err) console.log(err);
         console.log('app in running on port: 3000')
     });
+    const http = require("https");
+    setInterval(function() {
+        http.get("https://silva--mongomart.herokuapp.com");
+    }, 600000); // every 10 minutes (300000
 }
 
 main();
